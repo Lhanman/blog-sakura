@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/css/public.css" media="all">
+    <style type="text/css">
+        .layui-table-cell{
+
+            text-align:center;
+
+            height: auto!important;
+
+            white-space: normal;
+
+        }
+
+        .layui-table img{
+
+            max-width:300px
+
+        }
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+        </script>
+
+    </div>
+</div>
+<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        function getCookie(cname)
+        {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)===0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        var token = getCookie("Lhan-blog-token");
+        layui.$.ajaxSetup({
+
+            beforeSend: function(jqXHR, settings) {
+
+                /*header里加请求头参数*/
+                jqXHR.setRequestHeader('Authorization', token)
+
+            },
+            success:function(result,status,xhr){
+
+            },
+            error:function(xhr,status,error){
+
+            },
+            complete:function(xhr,status){
+
+            }
+        });
+
+        table.render({
+            elem: '#currentTableId',
+            url: 'admin/findAllManga',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print', {
+                title: '提示',
+                layEvent: 'LAYTABLE_TIPS',
+                icon: 'layui-icon-tips'
+            }],
+            cols: [[
+                {type: "checkbox", width: 50},
+                {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'uuid', width: 100, title: '漫画uuid'},
+                {field: 'cnTitle', width: 120, title: "中文名称"},
+                {field: 'jaTitle', width: 120, title: "日文名称"},
+                {field: 'startDate', width: 120, title: "发行日期", sort: true},
+                {field: 'endDate', width: 100, title: "完结日期"},
+                {field: 'myStatus', width: 100, title: "追漫状态", templet: '#myStatusTpl'},
+                {field: 'progressStr', minWidth: 120, title: "追漫进度", sort: true},
+                {field: 'url', width: 120, title: "Kitsu路径", sort: true},
+                {field: 'averageRating',sort:true, title: 'Kitsu评分',width: 120,templet:'<div><i class="layui-icon layui-icon-star-fill"/><span>{{d.averageRating}}</span></div>'},
+                {title: '操作', minWidth: 120, toolbar: '#currentTableBar', align: "center"}
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 10,
+            page: true,
+            skin: 'line'
+        });
+
+        // 监听搜索操作
+        // form.on('submit(data-search-btn)', function (data) {
+        //     var result = JSON.stringify(data.field);
+        //     layer.alert(result, {
+        //         title: '最终的搜索信息'
+        //     });
+        //
+        //     //执行搜索重载
+        //     table.reload('currentTableId', {
+        //         page: {
+        //             curr: 1
+        //         },
+        //         url: 'admin/findCommentLikeUserName'
+        //         , where: {
+        //             searchParams: result
+        //         }
+        //     }, 'data');
+        //
+        //     return false;
+        // });
+
+        /**
+         * toolbar监听事件
+         */
+
+        //监听表格复选框选择
+        table.on('checkbox(currentTableFilter)', function (obj) {
+
+        });
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'edit') {
+
+                var index = layer.open({
+                    title: '编辑漫画',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: 'admin/editManga/'+data.id
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                // $(window).on("close",function () {
+                //
+                // })
+                return false;
+            }
+        });
+
+    });
+</script>
+<script type="text/html" id="myStatusTpl">
+    {{#  if(d.myStatus === '想看'){ }}
+    <span style="color: orange;">想看</span>
+    {{#  } else if(d.myStatus === '正在追漫') { }}
+    <span style="color: red;">正在追漫</span>
+    {{#  } else if(d.myStatus === '已看完') { }}
+    <span style="color: green;">已看完</span>
+    {{#  } else { }}
+    <span style="color: saddlebrown">{{d.myStatus}}</span>
+    {{#  } }}
+</script>
+</body>
+</html>

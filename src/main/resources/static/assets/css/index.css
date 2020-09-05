@@ -1,0 +1,52 @@
+
+.tagcloud {
+    overflow: hidden; text-align:center;
+}
+.tagcloud span {
+    float: left; font-size:16px; line-height:2em;
+}
+.tagcloud span.bold {
+    font-weight:bold;
+}
+.tagcloud span:nth-child(1) {
+    width: 35%;
+    text-align: center;
+}
+.tagcloud span:nth-child(2) {
+    width: 30%;
+    text-align: left;
+}
+.tagcloud span:nth-child(3) {
+    width: 35%;
+    text-align: left;
+}
+.tagcloud span:nth-child(4) {
+    width: 35%;
+    text-align: right;
+}
+.tagcloud span:nth-child(5) {
+    width: 25%;
+    text-align: right;
+}
+.tagcloud span:nth-child(6) {
+    width: 25%;
+    text-align: right;
+}
+.tagcloud span:nth-child(7) {
+    width: 50%;
+    text-align: center;
+}
+.tagcloud span:nth-child(8) {
+    width: 30%;
+    text-align: center;
+}
+.tagcloud span:nth-child(9) {
+    width: 50%;
+    text-align: right;
+}
+.tagcloud span:nth-child(10) {
+    width: 40%;
+    text-align: right;
+}
+
+

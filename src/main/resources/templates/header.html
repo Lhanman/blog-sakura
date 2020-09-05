@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<!--所有页面共有头部-->
+
+    <div th:fragment="header">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-fixed">
+                <div class="container-fluid pl-120 pr-120 position-relative">
+                    <div class="row d-flex align-items-center">
+                        <div class="col-lg-3 col-md-4 col-6">
+                            <!-- Logo -->
+                            <div class="logo">
+                                <a href="#"><img src="http://static.lhanman.cn/static/images/logo.jpg" alt="" class="img-fluid"></a>
+                            </div>
+                            <!-- End of Logo -->
+                        </div>
+
+                        <div class="col-lg-9 col-md-8 col-6 d-flex justify-content-end position-static">
+                            <!-- Nav Menu -->
+                            <div class="nav-menu-cover">
+                                <ul class="nav nav-menu">
+                                    <li class=""><a href="/"><i class="fa fa-home"></i>&nbsp;首页</a></li>
+                                    <li class="menu-item-has-children"><a href="#"><i class="fa fa-archive"></i> &nbsp;归档</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/category/1"><i class="fa fa-terminal"></i>&nbsp;极客</a></li>
+                                            <li><a href="/category/2"><i class="fa fa-star"></i>&nbsp;番评</a>
+
+                                            </li>
+                                            <li ><a href="/category/3"><i class="fa fa-quote-right"></i>&nbsp;影评</a>
+                                            </li>
+                                            <li><a href="/category/4"><i class="fa fa-comment"></i>&nbsp;随想</a></li>
+                                        </ul>
+                                    </li>
+                                    <li class="menu-item-has-children"><a href="#"><i class="fa fa-list"></i> &nbsp;清单</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="#"><i class="fa fa-th-list"></i>&nbsp;书单</a></li>
+                                            <li><a href="/anime"><i class="fa fa-film"></i>&nbsp;追番</a> </li>
+                                            <li><a href="#"><i class="fa fa-music"></i>&nbsp;歌单</a></li>
+                                            <li><a href="#"><i class="fa fa-photo"></i>&nbsp;相册</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="/categories"><i class="fa fa-th"></i>&nbsp; 分类</a></li>
+                                    <li><a href="/tags"><i class="fa fa-tags"></i>&nbsp;标签</a></li>
+                                    <li><a href="/aboutme"><i class="fa fa-user"></i>&nbsp;关于</a></li>
+                                    <li><a href="/contactme"><i class="fa fa-edit"></i>&nbsp;留言</a></li>
+
+
+                                    <li class="menu-item-has-children" th:if="${#httpServletRequest.remoteUser}">
+                                        <a href="#">
+                                            <span sec:authentication="name"></span>
+                                        </a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/user"><i class="fa fa-user"></i>&nbsp;个人主页</a></li>
+                                            <li><a href="/editor" target="_blank"><i class="fa fa-coffee"></i>&nbsp;写博客</a></li>
+                                            <li><a href="/user" class="news"><i class="fa fa-envelope"></i>&nbsp;消息</a> </li>
+                                            <hr style="margin: 10px 0 5px 0;">
+                                            <li><a th:href="@{/logout}"><i class="fa fa-sign-out"></i>&nbsp;退出登录</a></li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="/login" th:unless="${#httpServletRequest.remoteUser}">
+                                            <i class="fa fa-sign-in"></i> &nbsp;登录
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/register" th:unless="${#httpServletRequest.remoteUser}">
+                                            <i class="fa fa-user"></i>&nbsp;&nbsp; 注册
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End of Nav Menu -->
+
+                            <!-- Mobile Menu -->
+                            <div class="mobile-menu-cover">
+                                <ul class="nav mobile-nav-menu">
+                                    <li class="search-toggle-open">
+                                        <img src="/assets/images/search-icon.svg" alt="" class="img-fluid svg">
+                                    </li>
+                                    <li class="search-toggle-close hide">
+                                        <img src="/assets/images/close.svg" alt="" class="img-fluid">
+                                    </li>
+                                    <li class="nav-menu-toggle">
+                                        <img src="/assets/images/menu-toggler.svg" alt="" class="img-fluid svg">
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End of Mobile Menu -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- End of Header -->
+    </div>
+</html>

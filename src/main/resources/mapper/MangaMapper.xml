@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Lhan.personal_blog.mapper.MangaMapper">
+  <resultMap id="BaseResultMap" type="com.Lhan.personal_blog.pojo.Manga">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="uuid" jdbcType="BIGINT" property="uuid" />
+    <result column="cnTitle" jdbcType="VARCHAR" property="cntitle" />
+    <result column="jpTitle" jdbcType="VARCHAR" property="jptitle" />
+    <result column="enTitle" jdbcType="VARCHAR" property="entitle" />
+    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="startDate" jdbcType="VARCHAR" property="startdate" />
+    <result column="updateAt" jdbcType="VARCHAR" property="updateat" />
+    <result column="endDate" jdbcType="VARCHAR" property="enddate" />
+    <result column="progress" jdbcType="INTEGER" property="progress" />
+    <result column="progressAt" jdbcType="VARCHAR" property="progressat" />
+    <result column="posterImage" jdbcType="VARCHAR" property="posterimage" />
+    <result column="ratingRank" jdbcType="VARCHAR" property="ratingrank" />
+    <result column="averageRating" jdbcType="VARCHAR" property="averagerating" />
+    <result column="summary" jdbcType="VARCHAR" property="summary" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="myStatus" jdbcType="VARCHAR" property="mystatus" />
+    <result column="chapterCount" jdbcType="VARCHAR" property="chaptercount" />
+    <result column="progress_str" jdbcType="VARCHAR" property="progressStr" />
+    <result column="progress_width" jdbcType="VARCHAR" property="progressWidth" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, uuid, cnTitle, jpTitle, enTitle, url, startDate, updateAt, endDate, progress, 
+    progressAt, posterImage, ratingRank, averageRating, summary, status, myStatus, chapterCount, 
+    progress_str, progress_width
+  </sql>
+  <select id="selectByExample" parameterType="com.Lhan.personal_blog.pojo.MangaExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_manga
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_manga
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_manga
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Manga" useGeneratedKeys="true">
+    insert into tbl_manga (uuid, cnTitle, jpTitle, 
+      enTitle, url, startDate, 
+      updateAt, endDate, progress, 
+      progressAt, posterImage, ratingRank, 
+      averageRating, summary, status, 
+      myStatus, chapterCount, progress_str, 
+      progress_width)
+    values (#{uuid,jdbcType=BIGINT}, #{cntitle,jdbcType=VARCHAR}, #{jptitle,jdbcType=VARCHAR}, 
+      #{entitle,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, 
+      #{updateat,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, #{progress,jdbcType=INTEGER}, 
+      #{progressat,jdbcType=VARCHAR}, #{posterimage,jdbcType=VARCHAR}, #{ratingrank,jdbcType=VARCHAR}, 
+      #{averagerating,jdbcType=VARCHAR}, #{summary,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{mystatus,jdbcType=VARCHAR}, #{chaptercount,jdbcType=VARCHAR}, #{progressStr,jdbcType=VARCHAR}, 
+      #{progressWidth,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Manga" useGeneratedKeys="true">
+    insert into tbl_manga
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        uuid,
+      </if>
+      <if test="cntitle != null">
+        cnTitle,
+      </if>
+      <if test="jptitle != null">
+        jpTitle,
+      </if>
+      <if test="entitle != null">
+        enTitle,
+      </if>
+      <if test="url != null">
+        url,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="updateat != null">
+        updateAt,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="progressat != null">
+        progressAt,
+      </if>
+      <if test="posterimage != null">
+        posterImage,
+      </if>
+      <if test="ratingrank != null">
+        ratingRank,
+      </if>
+      <if test="averagerating != null">
+        averageRating,
+      </if>
+      <if test="summary != null">
+        summary,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="mystatus != null">
+        myStatus,
+      </if>
+      <if test="chaptercount != null">
+        chapterCount,
+      </if>
+      <if test="progressStr != null">
+        progress_str,
+      </if>
+      <if test="progressWidth != null">
+        progress_width,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uuid != null">
+        #{uuid,jdbcType=BIGINT},
+      </if>
+      <if test="cntitle != null">
+        #{cntitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jptitle != null">
+        #{jptitle,jdbcType=VARCHAR},
+      </if>
+      <if test="entitle != null">
+        #{entitle,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateat != null">
+        #{updateat,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=INTEGER},
+      </if>
+      <if test="progressat != null">
+        #{progressat,jdbcType=VARCHAR},
+      </if>
+      <if test="posterimage != null">
+        #{posterimage,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingrank != null">
+        #{ratingrank,jdbcType=VARCHAR},
+      </if>
+      <if test="averagerating != null">
+        #{averagerating,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="mystatus != null">
+        #{mystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="chaptercount != null">
+        #{chaptercount,jdbcType=VARCHAR},
+      </if>
+      <if test="progressStr != null">
+        #{progressStr,jdbcType=VARCHAR},
+      </if>
+      <if test="progressWidth != null">
+        #{progressWidth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Lhan.personal_blog.pojo.Manga">
+    update tbl_manga
+    <set>
+      <if test="uuid != null">
+        uuid = #{uuid,jdbcType=BIGINT},
+      </if>
+      <if test="cntitle != null">
+        cnTitle = #{cntitle,jdbcType=VARCHAR},
+      </if>
+      <if test="jptitle != null">
+        jpTitle = #{jptitle,jdbcType=VARCHAR},
+      </if>
+      <if test="entitle != null">
+        enTitle = #{entitle,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null">
+        url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="updateat != null">
+        updateAt = #{updateat,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=INTEGER},
+      </if>
+      <if test="progressat != null">
+        progressAt = #{progressat,jdbcType=VARCHAR},
+      </if>
+      <if test="posterimage != null">
+        posterImage = #{posterimage,jdbcType=VARCHAR},
+      </if>
+      <if test="ratingrank != null">
+        ratingRank = #{ratingrank,jdbcType=VARCHAR},
+      </if>
+      <if test="averagerating != null">
+        averageRating = #{averagerating,jdbcType=VARCHAR},
+      </if>
+      <if test="summary != null">
+        summary = #{summary,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="mystatus != null">
+        myStatus = #{mystatus,jdbcType=VARCHAR},
+      </if>
+      <if test="chaptercount != null">
+        chapterCount = #{chaptercount,jdbcType=VARCHAR},
+      </if>
+      <if test="progressStr != null">
+        progress_str = #{progressStr,jdbcType=VARCHAR},
+      </if>
+      <if test="progressWidth != null">
+        progress_width = #{progressWidth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Lhan.personal_blog.pojo.Manga">
+    update tbl_manga
+    set uuid = #{uuid,jdbcType=BIGINT},
+      cnTitle = #{cntitle,jdbcType=VARCHAR},
+      jpTitle = #{jptitle,jdbcType=VARCHAR},
+      enTitle = #{entitle,jdbcType=VARCHAR},
+      url = #{url,jdbcType=VARCHAR},
+      startDate = #{startdate,jdbcType=VARCHAR},
+      updateAt = #{updateat,jdbcType=VARCHAR},
+      endDate = #{enddate,jdbcType=VARCHAR},
+      progress = #{progress,jdbcType=INTEGER},
+      progressAt = #{progressat,jdbcType=VARCHAR},
+      posterImage = #{posterimage,jdbcType=VARCHAR},
+      ratingRank = #{ratingrank,jdbcType=VARCHAR},
+      averageRating = #{averagerating,jdbcType=VARCHAR},
+      summary = #{summary,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      myStatus = #{mystatus,jdbcType=VARCHAR},
+      chapterCount = #{chaptercount,jdbcType=VARCHAR},
+      progress_str = #{progressStr,jdbcType=VARCHAR},
+      progress_width = #{progressWidth,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

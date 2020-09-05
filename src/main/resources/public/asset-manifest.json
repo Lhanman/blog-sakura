@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.js": "./static/js/main.4fe42f8c.chunk.js",
+    "runtime-main.js": "./static/js/runtime-main.5c14c32e.js",
+    "static/css/2.dc893b2f.chunk.css": "./static/css/2.dc893b2f.chunk.css",
+    "static/js/2.db277dc6.chunk.js": "./static/js/2.db277dc6.chunk.js",
+    "index.html": "./index.html",
+    "precache-manifest.9853dc88713ffa0f4259ddb5a94de446.js": "./precache-manifest.9853dc88713ffa0f4259ddb5a94de446.js",
+    "service-worker.js": "./service-worker.js",
+    "static/js/2.db277dc6.chunk.js.LICENSE.txt": "./static/js/2.db277dc6.chunk.js.LICENSE.txt",
+    "static/media/404.png": "./static/media/404.9615b8a5.png",
+    "static/media/ayuda.cur": "./static/media/ayuda.4f1cd0e7.cur",
+    "static/media/next-b.svg": "./static/media/next-b.2dd613cb.svg",
+    "static/media/normal.cur": "./static/media/normal.468b8ee9.cur",
+    "static/media/sakura.svg": "./static/media/sakura.977678fc.svg",
+    "static/media/texto.cur": "./static/media/texto.68d4b275.cur"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5c14c32e.js",
+    "static/css/2.dc893b2f.chunk.css",
+    "static/js/2.db277dc6.chunk.js",
+    "static/js/main.4fe42f8c.chunk.js"
+  ]
+}

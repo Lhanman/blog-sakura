@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Lhan.personal_blog.mapper.BookMapper">
+  <resultMap id="BaseResultMap" type="com.Lhan.personal_blog.pojo.Book">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="douban_link" jdbcType="VARCHAR" property="doubanLink" />
+    <result column="purchase_link" jdbcType="VARCHAR" property="purchaseLink" />
+    <result column="pdf_link" jdbcType="VARCHAR" property="pdfLink" />
+    <result column="picture_url" jdbcType="VARCHAR" property="pictureUrl" />
+    <result column="progress" jdbcType="VARCHAR" property="progress" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, name, description, douban_link, purchase_link, pdf_link, picture_url, progress, 
+    category, author
+  </sql>
+  <select id="selectByExample" parameterType="com.Lhan.personal_blog.pojo.BookExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_book
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_book
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_book
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Book" useGeneratedKeys="true">
+    insert into tbl_book (name, description, douban_link, 
+      purchase_link, pdf_link, picture_url, 
+      progress, category, author
+      )
+    values (#{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{doubanLink,jdbcType=VARCHAR}, 
+      #{purchaseLink,jdbcType=VARCHAR}, #{pdfLink,jdbcType=VARCHAR}, #{pictureUrl,jdbcType=VARCHAR}, 
+      #{progress,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Book" useGeneratedKeys="true">
+    insert into tbl_book
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="doubanLink != null">
+        douban_link,
+      </if>
+      <if test="purchaseLink != null">
+        purchase_link,
+      </if>
+      <if test="pdfLink != null">
+        pdf_link,
+      </if>
+      <if test="pictureUrl != null">
+        picture_url,
+      </if>
+      <if test="progress != null">
+        progress,
+      </if>
+      <if test="category != null">
+        category,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="doubanLink != null">
+        #{doubanLink,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseLink != null">
+        #{purchaseLink,jdbcType=VARCHAR},
+      </if>
+      <if test="pdfLink != null">
+        #{pdfLink,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null">
+        #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Lhan.personal_blog.pojo.Book">
+    update tbl_book
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="doubanLink != null">
+        douban_link = #{doubanLink,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseLink != null">
+        purchase_link = #{purchaseLink,jdbcType=VARCHAR},
+      </if>
+      <if test="pdfLink != null">
+        pdf_link = #{pdfLink,jdbcType=VARCHAR},
+      </if>
+      <if test="pictureUrl != null">
+        picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="progress != null">
+        progress = #{progress,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null">
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Lhan.personal_blog.pojo.Book">
+    update tbl_book
+    set name = #{name,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      douban_link = #{doubanLink,jdbcType=VARCHAR},
+      purchase_link = #{purchaseLink,jdbcType=VARCHAR},
+      pdf_link = #{pdfLink,jdbcType=VARCHAR},
+      picture_url = #{pictureUrl,jdbcType=VARCHAR},
+      progress = #{progress,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Lhan.personal_blog.mapper.CategoryInfoMapper">
+  <resultMap id="BaseResultMap" type="com.Lhan.personal_blog.pojo.CategoryInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="number" jdbcType="INTEGER" property="number" />
+    <result column="create_by" jdbcType="DATE" property="createBy" />
+    <result column="modified_by" jdbcType="DATE" property="modifiedBy" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, icon, number, create_by, modified_by
+  </sql>
+  <select id="selectByExample" parameterType="com.Lhan.personal_blog.pojo.CategoryInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_category_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_category_info
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_category_info
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.CategoryInfo" useGeneratedKeys="true">
+    insert into tbl_category_info (name, icon, number, 
+      create_by, modified_by)
+    values (#{name,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{number,jdbcType=INTEGER}, 
+      #{createBy,jdbcType=DATE}, #{modifiedBy,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.CategoryInfo" useGeneratedKeys="true">
+    insert into tbl_category_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="modifiedBy != null">
+        modified_by,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=DATE},
+      </if>
+      <if test="modifiedBy != null">
+        #{modifiedBy,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Lhan.personal_blog.pojo.CategoryInfo">
+    update tbl_category_info
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=DATE},
+      </if>
+      <if test="modifiedBy != null">
+        modified_by = #{modifiedBy,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Lhan.personal_blog.pojo.CategoryInfo">
+    update tbl_category_info
+    set name = #{name,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      number = #{number,jdbcType=INTEGER},
+      create_by = #{createBy,jdbcType=DATE},
+      modified_by = #{modifiedBy,jdbcType=DATE}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findCategoryNames" resultType="String">
+    select name from tbl_category_info
+  </select>
+
+  <select id="findCategoryNum" resultType="Integer">
+    select count(*) from tbl_category_info
+  </select>
+
+</mapper>

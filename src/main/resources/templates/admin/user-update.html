@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html  lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/css/public.css" media="all">
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css">
+    <link rel="stylesheet" href="/assets/css/user.css">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+
+    <div class="layui-form-item">
+        <div class="headPortrait">
+            <img id="headPortrait" th:src="${avatarImgUrl}">
+        </div>
+        <div class="headChange">
+            <div class="layui-upload ">
+                <button type="button" class="layui-btn layui-btn-normal layui-btn-radius headPortraitChange" id="imgTest">更换头像</button>
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">用户名</label>
+        <div class="layui-input-block">
+            <input type="text" th:value="${username}" name="username" lay-verify="required" lay-reqtext="用户名不能为空" placeholder="请输入用户名" value="" class="layui-input">
+            <tip>填写自己的用户名称。</tip>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">性别</label>
+        <div class="layui-input-block">
+            <label style="width: 120px ;">
+                <input type="radio" th:attr="checked=${gender=='male'}" name="gender" value="male"  checked="">
+                <span class="am-icon-male"></span>
+            </label>
+            <label style="width: 120px">
+                <input type="radio" th:attr="checked=${gender=='female'}" name="gender" value="female" >
+                <span class="am-icon-female"></span>
+            </label>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label required">手机</label>
+        <div class="layui-input-block">
+            <input type="number" name="phone" th:value="${phone}" lay-verify="required" lay-reqtext="手机不能为空" placeholder="请输入手机" value="" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">生日</label>
+        <div class="layui-input-block">
+            <input type="text" name="birthday" th:value="${birthday}" id="date" placeholder="yyyy-MM-dd" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">邮箱</label>
+        <div class="layui-input-block">
+            <input type="email" name="email" th:value="${email}" lay-verify="email" placeholder="请输入邮箱" value="" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="id" th:value="${id}" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">个人简介</label>
+        <div class="layui-input-block">
+            <textarea name="personal_brief" th:text="${personal_brief}" class="layui-textarea" placeholder="请输入个人简介"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form','laydate'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            laydate = layui.laydate,
+            $ = layui.$;
+        function getCookie(cname)
+        {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)===0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        var token = getCookie("Lhan-blog-token");
+        layui.$.ajaxSetup({
+
+            beforeSend: function(jqXHR, settings) {
+
+                /*header里加请求头参数*/
+                jqXHR.setRequestHeader('Authorization', token)
+
+            },
+            success:function(result,status,xhr){
+
+            },
+            error:function(xhr,status,error){
+
+            },
+            complete:function(xhr,status){
+
+            }
+        });
+
+        //日期
+        laydate.render({
+            elem: '#date'
+        });
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            $.ajax({
+                type : 'post',
+                url : '/api/blog/admin/admin/updateUser',
+                data:{
+                    username: data.field.username,
+                    email:data.field.email,
+                    gender:data.field.gender,
+                    phone:data.field.phone,
+                    personalBrief:data.field.personal_brief,
+                    id : data.field.id,
+                    birthday:data.field.birthday
+                },
+                dataType:'json',
+                success : function (data) {
+                    if (data.status === 101)
+                    {
+                        $.get("/toLogin",function(data,status,xhr){
+
+                            layer.alert("未登录，没有权限",{
+                                icon:5
+                            },function () {
+                                window.location.replace("/api/blog/login");
+                            });
+
+                        });
+                    }
+                    else if (data.status === 0)
+                    {
+                        var index = layer.alert("保存成功", {
+                            title: '保存信息'
+                        }, function () {
+
+                            // 关闭弹出层
+                            layer.close(index);
+
+                            window.parent.location.reload();
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+
+                        });
+                    }
+                    else
+                    {
+                        layer.msg("保存失败",{
+                            icon:5
+                        })
+                    }
+                }
+            });
+
+            return false;
+        });
+
+    });
+</script>
+
+<script>
+    layui.use('upload','layer', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#imgTest'
+            , url: '/api/blog/admin/admin/uploadHead/' + [[${id}]] //改成您自己的上传接口
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#headPortrait').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.status === 101) {
+                    $.get("/toLogin", function (data, status, xhr) {
+
+                        layer.alert("未登录，没有权限", {
+                            icon: 5
+                        }, function () {
+                            window.location.replace("/api/blog/login");
+                        });
+
+                    });
+                }
+                //上传成功
+                $('#headPortrait').attr("src", res['data']);
+                layer.msg("更改头像成功", {
+                    icon: 1
+                });
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+
+
+    // function imgChange(e) {
+    //     var reader = new FileReader();
+    //     reader.onload = (function (file) {
+    //         return function (e) {
+    //             $.ajax({
+    //                 type:'post',
+    //                 url:'admin/uploadHead'+[[${id}]],
+    //                 dataType:'json',
+    //
+    //                 success : function (data) {
+    //                     if (data.status === 101)
+    //                     {
+    //                         $.get("/toLogin",function(data,status,xhr){
+    //
+    //                             layer.alert("未登录，没有权限",{
+    //                                 icon:5
+    //                             },function () {
+    //                                 window.location.replace("/api/blog/login");
+    //                             });
+    //
+    //                         });
+    //                     }
+    //                     else if(data.status === 207)
+    //                     {
+    //                         layer.alert("图片不能为空",{
+    //                             icon:5
+    //                         });
+    //                     }
+    //                     else if (data['status'] === 0)
+    //                         {
+    //                             $('#headPortrait').attr("src",data['data']);
+    //                             layer.msg("更改头像成功",{
+    //                                 icon:1
+    //                             });
+    //                         }
+    //                     else
+    //                         {
+    //                             layer.msg("更改头像失败",{
+    //                                 icon:5
+    //                             });
+    //                         }
+    //                     },
+    //                 error : function () {
+    //
+    //                 }
+    //             })
+    //         }
+    //     })(e.target.files[0]);
+    //     reader.readAsDataURL(e.target.files[0])
+    // }
+</script>
+</body>
+</html>

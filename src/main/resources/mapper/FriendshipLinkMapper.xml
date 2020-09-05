@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Lhan.personal_blog.mapper.FriendshipLinkMapper">
+  <resultMap id="BaseResultMap" type="com.Lhan.personal_blog.pojo.FriendshipLink">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="logo" jdbcType="VARCHAR" property="logo" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="href" jdbcType="VARCHAR" property="href" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, name, title, logo, sort, description, href
+  </sql>
+  <select id="selectByExample" parameterType="com.Lhan.personal_blog.pojo.FriendshipLinkExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_friendship_link
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_friendship_link
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_friendship_link
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.FriendshipLink" useGeneratedKeys="true">
+    insert into tbl_friendship_link (name, title, logo, 
+      sort, description, href
+      )
+    values (#{name,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR}, 
+      #{sort,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.FriendshipLink" useGeneratedKeys="true">
+    insert into tbl_friendship_link
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="logo != null">
+        logo,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="href != null">
+        href,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        #{href,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Lhan.personal_blog.pojo.FriendshipLink">
+    update tbl_friendship_link
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="logo != null">
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Lhan.personal_blog.pojo.FriendshipLink">
+    update tbl_friendship_link
+    set name = #{name,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      logo = #{logo,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/css/public.css" media="all">
+
+    <style type="text/css">
+        .layui-table-cell{
+
+            text-align:center;
+
+            height: auto!important;
+
+            white-space: normal;
+
+        }
+
+        .layui-table img{
+
+            max-width:300px
+
+        }
+    </style>
+
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div style="margin: 10px 10px 10px 10px">
+                <form class="layui-form layui-form-pane" action="">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <label class="layui-form-label">用户名</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="username" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">手机号</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="phone" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <label class="layui-form-label">Email</label>
+                            <div class="layui-input-inline">
+                                <input type="text" name="email" autocomplete="off" class="layui-input">
+                            </div>
+                        </div>
+                        <div class="layui-inline">
+                            <button type="submit" class="layui-btn layui-btn-primary"  lay-submit lay-filter="data-search-btn"><i class="layui-icon"></i> 搜 索</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            <a class="layui-btn layui-btn-normal layui-btn-xs data-count-edit" lay-event="edit">编辑</a>
+            <a class="layui-btn layui-btn-xs layui-btn-danger data-count-delete" lay-event="delete">删除</a>
+        </script>
+
+
+    </div>
+</div>
+<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            blog = layui.table;
+
+        blog.render({
+            elem: '#currentTableId',
+            url: 'admin/findAllUser',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print'],
+            cols: [[
+                {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'avatarImg_url', minWidth: 130, title: "用户头像",templet:'<div><img src="{{d.avatarImg_url}}" style="width: 80px;height: 80px;"></div>'},
+                {field: 'username', minWidth: 150, title: '用户名'},
+                {field: 'phone', width: 150, title: '手机号', sort: true},
+                {field: 'gender', width: 130, title: '性别', sort: true,templet:'#sexTpl'},
+                {field: 'birthday', width: 150, title: '生日', sort: true},
+                {field: 'email', width: 150, title: 'Email'},
+                {field: 'personal_brief', width: 150, title: '个人简介'},
+                {field: 'recently_landed', width: 150, title: '最近登录',sort:true}
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 10,
+            page: true,
+            skin: 'line'
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+            layer.alert(result, {
+                title: '最终的搜索信息'
+            });
+
+            //执行搜索重载
+            blog.reload('currentTableId', {
+                page: {
+                    curr: 1
+                },
+                url: 'admin/articleSearch'
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+
+            return false;
+        });
+
+
+    });
+</script>
+
+<script type="text/html" id="sexTpl">
+    {{#  if(d.gender === 'female'){ }}
+    <span style="color: #F581B1;">女</span>
+    {{#  } else { }}
+    <span style="color: blue">男</span>
+    {{#  } }}
+</script>
+
+</body>
+</html>

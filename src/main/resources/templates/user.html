@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Document Title -->
+    <title>JiaHao_Blog</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="/assets/images/myfavicon1.png">
+
+    <!--==== Google Fonts ====-->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500%7CSpectral:400,400i,500,600,700" rel="stylesheet">
+
+    <!-- CSS Files -->
+
+    <!--==== Bootstrap css file ====-->
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+
+    <!--==== Font-Awesome css file ====-->
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+
+    <!--==== Animate CSS ====-->
+    <link rel="stylesheet" href="/plugins/animate/animate.min.css">
+
+    <!--==== Owl Carousel ====-->
+    <link rel="stylesheet" href="/plugins/owl-carousel/owl.carousel.min.css">
+
+    <!--==== Magnific Popup ====-->
+    <link rel="stylesheet" href="/plugins/magnific-popup/magnific-popup.css">
+
+    <!--==== Style css file ====-->
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <!--==== Responsive css file ====-->
+    <link rel="stylesheet" href="/assets/css/responsive.css">
+
+    <!--==== Custom css file ====-->
+    <link rel="stylesheet" href="/assets/css/custom.css">
+
+    <link rel="stylesheet" href="/assets/css/user2.css">
+
+    <link rel="stylesheet" href="/assets/css/amazeui.min.css">
+
+    <link rel="stylesheet" href="/assets/css/admin.css">
+
+    <link rel="stylesheet" href="/assets/lib/layui-v2.5.5/css/layui.css">
+
+    <link rel="stylesheet" href="/assets/lib/layui-v2.5.5/css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="/assets/css/all.css">
+
+
+</head>
+<body>
+<!-- Preloader -->
+<div class="preloader">
+    <div class="preload-img">
+        <div class="spinnerBounce">
+            <div class="double-bounce1"></div>
+            <div class="double-bounce2"></div>
+        </div>
+    </div>
+</div>
+<!-- End of Preloader -->
+
+<!-- Nav Search Box -->
+<div class="nav-search-box">
+    <form>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="‘搜’的一下">
+            <span class="b-line"></span>
+            <span class="b-line-under"></span>
+            <div class="input-group-append">
+                <button type="button" class="btn">
+                    <img src="/assets/images/search-icon.svg" alt="" class="img-fluid svg">
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<!-- End of Nav Search Box -->
+<!-- 引入共有头部-->
+<div th:replace="header :: header"></div>
+
+<!--页面主体 -->
+
+
+<div class="am-cf admin-main" style="padding-top: 10px">
+
+    <!--左侧-->
+    <div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
+        <div class="am-offcanvas-bar admin-offcanvas-bar">
+            <ul class="userList am-list admin-sidebar-list">
+                <li class="clickLi personalDate" ><a><i class="fa fa-file "></i> 个人资料</a></li>
+                <li class="clickLi basicSetting"><a><i class="fa fa-cogs"></i> 安全设置</a></li>
+                <li class="clickLi commentMessage"><a><i class="fa fa-comment-o"></i> 评论管理</a></li>
+            </ul>
+            <div class="am-panel am-panel-default admin-sidebar-panel">
+                <div class="am-panel-bd">
+                    <p><span class="am-icon-bookmark"></span> 公告</p>
+                    <p>Stay hungry,Stay foolish</p>
+                    <p style="margin-left: 65px"> ——Steve Paul Jobs</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--右侧-->
+    <div class="admin-content">
+        <div class="userInfo">
+            <div id="personalDate">
+                <ol class="am-breadcrumb  am-breadcrumb-slash">
+                    <li class="am-active am-icon-home"> 个人主页</li>
+                    <li class="am-active">个人资料</li>
+                </ol>
+                <div class="Lhan-personalDate">
+                    <div class="personalDateHeadPortrait">
+                        <div class="layui-form-item">
+                            <div class="headPortrait">
+                                <img id="headPortrait" src="/assets/images/ServerError.jpg">
+                            </div>
+                            <div class="headChange">
+                                <div class="layui-upload ">
+                                    <button type="button" class="layui-btn layui-btn-normal layui-btn-radius headPortraitChange" id="imgTest">更换头像</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="personalDateForm">
+                        <form id="personalDateForm">
+                            <div class="userNameTable">
+                                <label for="username">用户名</label>
+                                <input class="formInput" type="text" id="username" placeholder="填写你的昵称">
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                            </div>
+                            <div class="phoneTable">
+                                <label>手机</label>
+                                <div class="phone" id="personalPhone"></div>
+                                <i class="phoneCheck am-icon-check">已验证</i>
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                            </div>
+                            <div class="birthdayTable">
+                                <label for="birthday">生日</label>
+                                <input class="formInput" type="text" id="birthday" data-am-datepicker="{format: 'yyyy-mm-dd', viewMode: 'years'}" placeholder="填写你的生日"/>
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                            </div>
+                            <div class="genderTable">
+                                <label>性别</label>
+                                <label class="am-radio-inline" style="width: 60px">
+                                    <input class="formInput" type="radio" id="male" name="gender" value="male" data-am-ucheck>
+                                    <span class="am-icon-male "></span>
+                                </label>
+                                <label class="am-radio-inline" style="width: 60px">
+                                    <input class="formInput" type="radio" id="female" name="gender" value="female" data-am-ucheck>
+                                    <span class="am-icon-female "></span>
+                                </label>
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default"/>
+                            </div>
+                            <div class="emailTable">
+                                <label for="email">邮箱</label>
+                                <input class="formInput" type="email" id="email" placeholder="填写你的邮箱">
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                            </div>
+                            <div class="personalBriefTable">
+                                <label for="personalBrief">个人简介</label>
+                                <textarea class="formInput" id="personalBrief" placeholder="填写你的个人简介"></textarea>
+                                <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                            </div>
+                            <button type="button" id="savePersonalDateBtn" class="savePersonalDateBtn am-btn am-btn-warning">保存</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div id="basicSetting">
+                <ol class="am-breadcrumb  am-breadcrumb-slash">
+                    <li class="am-active am-icon-home"> 个人主页</li>
+                    <li class="am-active">安全设置</li>
+                </ol>
+                <div class="Lhan-basicSetting">
+                    <form id="basicSettingForm">
+                        <div class="phoneTable">
+                            <label for="phone">手机</label>
+                            <input class="formInput" type="text" id="phone" placeholder="填写你的手机号">
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                        </div>
+                        <div class="authCodeTable">
+                            <label for="authCode">验证码</label>
+                            <input class="formInput" type="text" id="authCode" placeholder="填写验证码">
+                            <button type="button" id="authCodeBtn" class="authCodeBtn am-btn am-btn-secondary am-round am-btn-sm">获取验证码</button>
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                        </div>
+                        <div class="passwordTable">
+                            <label for="password">新密码</label>
+                            <input class="formInput" type="password" id="password" placeholder="填写你的密码">
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                        </div>
+                        <div class="phoneTable">
+                            <label for="surePassword">确认密码</label>
+                            <input class="formInput" type="password" id="surePassword" placeholder="再次填写你的密码">
+                            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+                        </div>
+                        <button type="button" id="changePasswordBtn" class="changePasswordBtn am-btn am-btn-warning">保存</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="commentMessage">
+                <div class="msgCommentMessage">
+                    <ol class="am-breadcrumb  am-breadcrumb-slash navigationBar">
+                        <li class="am-active am-icon-home"> 个人主页</li>
+                        <li class="am-active">评论管理</li>
+                    </ol>
+                    <div class="msgContent am-animation-slide-right">
+                        <!--填充评论信息-->
+
+                    </div>
+                    <!--分页-->
+                    <div id="pageInfo" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Footer -->
+<div th:replace="footer :: footer"></div>
+
+
+<!-- Back to Top Button -->
+<div class="back-to-top d-flex align-items-center justify-content-center">
+    <span><i class="fa fa-long-arrow-up"></i></span>
+</div>
+<!-- End of Back to Top Button -->
+
+<!-- JS Files -->
+
+<!-- ==== JQuery 1.12.1 js file ==== -->
+<script src="/assets/js/jquery-1.12.1.min.js"></script>
+
+<!-- ==== Bootstrap js file ==== -->
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+<!-- ==== Owl Carousel ==== -->
+<script src="/plugins/owl-carousel/owl.carousel.min.js"></script>
+
+<!-- ==== Magnific Popup ==== -->
+<script src="/plugins/magnific-popup/jquery.magnific-popup.min.js"></script>
+
+<!-- ==== Script js file ==== -->
+<script src="/assets/js/scripts.js"></script>
+
+<!-- ==== Custom js file ==== -->
+<script src="/assets/js/custom.js"></script>
+
+<script src="/assets/js/amazeui.min.js"></script>
+
+<script src="/assets/js/user.js"></script>
+<script src="/assets/lib/layui-v2.5.5/layui.js"></script>
+<script src="/assets/lib/layui-v2.5.5/lay/modules/layer.js"></script>
+<script src="https://lib.baomitu.com/underscore.js/1.9.1/underscore-min.js"></script>
+<script src="/assets/layui/lay/modules/laypage.js"></script>
+
+
+<script>
+    layui.use(['upload','layer'], function() {
+        var $ = layui.jquery
+            , upload = layui.upload
+            , layer = layui.layer;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#imgTest'
+            , url: '/uploadHead' //改成您自己的上传接口
+            , done: function (res) {
+                //如果上传失败
+                if (res.status === 101) {
+                    $.get("/toLogin", function (data, status, xhr) {
+
+                        layer.alert("未登录，没有权限", {
+                            icon: 5
+                        }, function () {
+                            window.location.replace("/login");
+                        });
+
+                    });
+                }
+                //上传成功
+                $('#headPortrait').attr("src", res['data']);
+                layer.msg("更改头像成功", {
+                    icon: 1
+                });
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>

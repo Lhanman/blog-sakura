@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Lhan.personal_blog.mapper.SocialMapper">
+  <resultMap id="BaseResultMap" type="com.Lhan.personal_blog.pojo.Social">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="VARCHAR" property="code" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="show_type" jdbcType="INTEGER" property="showType" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="is_enable" jdbcType="INTEGER" property="isEnable" />
+    <result column="is_home" jdbcType="INTEGER" property="isHome" />
+    <result column="link" jdbcType="VARCHAR" property="link" />
+    <result column="create_time" jdbcType="DATE" property="createTime" />
+    <result column="update_time" jdbcType="DATE" property="updateTime" />
+    <result column="sort" jdbcType="INTEGER" property="sort" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, code, content, show_type, remark, icon, is_enable, is_home, link, create_time, 
+    update_time, sort
+  </sql>
+  <select id="selectByExample" parameterType="com.Lhan.personal_blog.pojo.SocialExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_social
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_social
+    where Id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_social
+    where Id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Social" useGeneratedKeys="true">
+    insert into tbl_social (code, content, show_type, 
+      remark, icon, is_enable, 
+      is_home, link, create_time, 
+      update_time, sort)
+    values (#{code,jdbcType=VARCHAR}, #{content,jdbcType=VARCHAR}, #{showType,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{isEnable,jdbcType=INTEGER}, 
+      #{isHome,jdbcType=INTEGER}, #{link,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, 
+      #{updateTime,jdbcType=DATE}, #{sort,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Social" useGeneratedKeys="true">
+    insert into tbl_social
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        code,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="showType != null">
+        show_type,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="isEnable != null">
+        is_enable,
+      </if>
+      <if test="isHome != null">
+        is_home,
+      </if>
+      <if test="link != null">
+        link,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="sort != null">
+        sort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="showType != null">
+        #{showType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isHome != null">
+        #{isHome,jdbcType=INTEGER},
+      </if>
+      <if test="link != null">
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="sort != null">
+        #{sort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Lhan.personal_blog.pojo.Social">
+    update tbl_social
+    <set>
+      <if test="code != null">
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="showType != null">
+        show_type = #{showType,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable,jdbcType=INTEGER},
+      </if>
+      <if test="isHome != null">
+        is_home = #{isHome,jdbcType=INTEGER},
+      </if>
+      <if test="link != null">
+        link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=DATE},
+      </if>
+      <if test="sort != null">
+        sort = #{sort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Lhan.personal_blog.pojo.Social">
+    update tbl_social
+    set code = #{code,jdbcType=VARCHAR},
+      content = #{content,jdbcType=VARCHAR},
+      show_type = #{showType,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      is_enable = #{isEnable,jdbcType=INTEGER},
+      is_home = #{isHome,jdbcType=INTEGER},
+      link = #{link,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
+      update_time = #{updateTime,jdbcType=DATE},
+      sort = #{sort,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en"xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Document Title -->
+    <title>JiaHao_Blog</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="http://static.lhanman.cn/static/images/myfavicon1.png">
+    <link rel="icon" href="http://static.lhanman.cn/static/images/myfavicon1.png" type="image/png" />
+
+    <!--==== Google Fonts ====-->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500%7CSpectral:400,400i,500,600,700" rel="stylesheet">
+
+    <!-- CSS Files -->
+
+    <!--==== Bootstrap css file ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!--==== Font-Awesome css file ====-->
+    <link href="http://static.lhanman.cn/static/assets/css/font-awesome.min.css" rel="stylesheet">
+
+    <!--==== Animate CSS ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+
+    <!--==== Owl Carousel ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" rel="stylesheet">
+
+    <!--==== Magnific Popup ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet">
+
+    <!--==== Style css file ====-->
+    <link rel="stylesheet" href="http://static.lhanman.cn/static/assets/css/style.css">
+
+    <!--==== Custom css file ====-->
+    <!--    <link rel="stylesheet" href="/assets/css/custom.css">-->
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preload-img">
+            <div class="spinnerBounce">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Preloader -->
+
+    <!-- Nav Search Box -->
+    <div class="nav-search-box">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="‘搜’的一下">
+                <span class="b-line"></span>
+                <span class="b-line-under"></span>
+                <div class="input-group-append">
+                    <button type="button" class="btn">
+                        <img src="/assets/images/search-icon.svg" alt="" class="img-fluid svg">
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- End of Nav Search Box -->
+
+    <!-- 引入共有头部-->
+    <div th:replace="header :: header"></div>
+
+    <!-- Page title -->
+    <div class="page-title">
+        <div class="container">
+            <h2>留言</h2>
+            <ul class="nav">
+                <li><a href="/">首页</a></li>
+                <li>留言</li>
+            </ul>
+        </div>
+    </div>
+    <!-- End of Page title -->
+    
+    <div class="container pt-120 pb-120">
+        <!-- Contact Cover -->
+        <div class="contact-cover">
+            <img src="http://static.lhanman.cn/static/assets/images/category/2.jpg" alt="" class="img-fluid">
+        </div>
+        <!-- End of Contact Cover -->
+
+        <div class="biz-contact-form">
+            <!-- Contact Form Title -->
+            <div class="title text-center">
+                <h2>留言板</h2>
+                <p></p>
+            </div>
+            <!-- End of Contact Form Title -->
+
+            <div class="my-contact-form-cover">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" id="CommentName" name="name" class="form-control" placeholder="称呼(必填)" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="CommentEmail" name="email" class="form-control" placeholder="电子邮箱(必填)" required>
+                        </div>
+                        <div class="col-md-12">
+                            <textarea id="CommentContent" name="message" class="form-control" placeholder="在这里输入你的留言(●ˇ∀ˇ●)"  required></textarea>
+                        </div>
+                        <div class="col-md-12 text-center">
+                            <button id="CommentBtn" type="submit" class="btn btn-primary "><i class="fa fa-send"></i>&nbsp;提交留言</button>
+                        </div>
+                    </div>
+                <!-- 添加成功提示信息MODAL -->
+                <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header alert-success">
+                                <h4 class="modal-title">系统提示：</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>添加成功！</label>
+                                    </div>
+                                </div>
+                                <!-- /. END RWO -->
+                            </div>
+                            <!-- /. END MODAL BODY -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" id="addConfirmBtn">确定</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <div th:replace="footer :: footer"></div>
+    <!-- End of Footer -->
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top d-flex align-items-center justify-content-center">
+        <span><i class="fa fa-long-arrow-up"></i></span>
+    </div>
+    <!-- End of Back to Top Button -->    
+
+    <!-- JS Files -->
+
+    <!-- ==== JQuery 1.12.1 js file ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    <!-- ==== Bootstrap js file ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ==== Owl Carousel ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
+    <!-- ==== Magnific Popup ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+    <!-- ==== Script js file ==== -->
+    <script src="http://static.lhanman.cn/static/assets/js/scripts.js"></script>
+
+    <!-- ==== Custom js file ==== -->
+    <script src="http://static.lhanman.cn/static/assets/js/custom.js"></script>
+
+    <!-- 定制JavaScript -->
+    <script src="http://static.lhanman.cn/static/assets/js/contact.js"></script>
+</body>
+</html>

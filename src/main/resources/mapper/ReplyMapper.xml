@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Lhan.personal_blog.mapper.ReplyMapper">
+  <resultMap id="BaseResultMap" type="com.Lhan.personal_blog.pojo.Reply">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="comment_id" jdbcType="BIGINT" property="commentId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="is_effective" jdbcType="BIT" property="isEffective" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, comment_id, content, name, ip, is_effective
+  </sql>
+  <select id="selectByExample" parameterType="com.Lhan.personal_blog.pojo.ReplyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_reply
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_reply
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tbl_reply
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Reply" useGeneratedKeys="true">
+    insert into tbl_reply (comment_id, content, name, 
+      ip, is_effective)
+    values (#{commentId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{ip,jdbcType=VARCHAR}, #{isEffective,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="Id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Reply" useGeneratedKeys="true">
+    insert into tbl_reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        comment_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="isEffective != null">
+        is_effective,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentId != null">
+        #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null">
+        #{isEffective,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Lhan.personal_blog.pojo.Reply">
+    update tbl_reply
+    <set>
+      <if test="commentId != null">
+        comment_id = #{commentId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null">
+        is_effective = #{isEffective,jdbcType=BIT},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Lhan.personal_blog.pojo.Reply">
+    update tbl_reply
+    set comment_id = #{commentId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      is_effective = #{isEffective,jdbcType=BIT}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

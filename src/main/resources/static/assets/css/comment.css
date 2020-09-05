@@ -1,0 +1,40 @@
+.goToLogin{
+    width: 100%;
+    height: 70px;
+}
+
+#toLogin{
+    cursor: pointer;
+    color: blue;
+}
+.replyPointer
+{
+    cursor: pointer;
+}
+
+.visitorReplyTime2{
+    float: right;
+    padding: 5px 0 0;
+    font-family: Arial;
+    color: #a0a0a0;
+}
+.replyPointer {
+    margin: 0 10px 7px 0;
+    display: inline-block;
+}
+
+.replyPointer i:hover{
+    cursor: pointer;
+    color: orange;
+    text-decoration: none;
+}
+
+
+.commentFloor{
+    float: right;
+    font-size: 200%;
+}
+.visitorSay
+{
+    margin-left: 15px;
+}

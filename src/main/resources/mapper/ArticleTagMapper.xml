@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Lhan.personal_blog.mapper.ArticleTagMapper">
+  <resultMap id="BaseResultMap" type="com.Lhan.personal_blog.pojo.ArticleTag">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="article_id" jdbcType="BIGINT" property="articleId" />
+    <result column="tag_name" jdbcType="VARCHAR" property="tagName" />
+    <result column="create_by" jdbcType="DATE" property="createBy" />
+    <result column="modified_by" jdbcType="DATE" property="modifiedBy" />
+    <result column="is_effective" jdbcType="BIT" property="isEffective" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, article_id, tag_name, create_by, modified_by, is_effective
+  </sql>
+  <select id="selectByExample" parameterType="com.Lhan.personal_blog.pojo.ArticleTagExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_article_tag
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_article_tag
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_article_tag
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.ArticleTag" useGeneratedKeys="true">
+    insert into tbl_article_tag (article_id, tag_name, create_by, 
+      modified_by, is_effective)
+    values (#{articleId,jdbcType=BIGINT}, #{tagName,jdbcType=VARCHAR}, #{createBy,jdbcType=DATE}, 
+      #{modifiedBy,jdbcType=DATE}, #{isEffective,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.ArticleTag" useGeneratedKeys="true">
+    insert into tbl_article_tag
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        article_id,
+      </if>
+      <if test="tagName != null">
+        tag_name,
+      </if>
+      <if test="createBy != null">
+        create_by,
+      </if>
+      <if test="modifiedBy != null">
+        modified_by,
+      </if>
+      <if test="isEffective != null">
+        is_effective,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="articleId != null">
+        #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="tagName != null">
+        #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=DATE},
+      </if>
+      <if test="modifiedBy != null">
+        #{modifiedBy,jdbcType=DATE},
+      </if>
+      <if test="isEffective != null">
+        #{isEffective,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Lhan.personal_blog.pojo.ArticleTag">
+    update tbl_article_tag
+    <set>
+      <if test="articleId != null">
+        article_id = #{articleId,jdbcType=BIGINT},
+      </if>
+      <if test="tagName != null">
+        tag_name = #{tagName,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        create_by = #{createBy,jdbcType=DATE},
+      </if>
+      <if test="modifiedBy != null">
+        modified_by = #{modifiedBy,jdbcType=DATE},
+      </if>
+      <if test="isEffective != null">
+        is_effective = #{isEffective,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Lhan.personal_blog.pojo.ArticleTag">
+    update tbl_article_tag
+    set article_id = #{articleId,jdbcType=BIGINT},
+      tag_name = #{tagName,jdbcType=VARCHAR},
+      create_by = #{createBy,jdbcType=DATE},
+      modified_by = #{modifiedBy,jdbcType=DATE},
+      is_effective = #{isEffective,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findTagNameDistinct" resultType="String">
+    select distinct tag_name from tbl_article_tag
+  </select>
+
+  <delete id="deleteArticleTagByArticleId" parameterType="Long">
+    delete from tbl_article_tag where article_id = #{article_id}
+  </delete>
+
+  <select id="findTagNum" resultType="Integer">
+    select count(*) from tbl_article_tag
+  </select>
+
+  <select id="findTagsDistinct" resultMap="BaseResultMap">
+    select * from tbl_article_tag group by tag_name order by id desc
+  </select>
+</mapper>

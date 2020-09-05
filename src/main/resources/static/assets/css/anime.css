@@ -1,0 +1,92 @@
+a.bangumItem{
+    line-height: 20px;
+    white-space: nowrap;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.2);
+    width: 47%;
+    margin: 1.5%;
+    float: left;
+    overflow: hidden;
+    display: block;
+    height: 7em;
+    text-decoration: none;
+    transition: opacity 0.5s linear;
+    font-family:-apple-system,BlinkMacSystemFont,Helvetica Neue,PingFang SC,Microsoft YaHei,Source Han Sans SC,Noto Sans CJK SC,WenQuanYi Micro Hei,sans-serif;
+}
+a.bangumItem:hover{
+    opacity: 0.8;
+}
+div.bangumibg{
+    height: 7em;
+    position: absolute;
+    background-position-x: center;
+    filter: blur(9px) brightness(0.8);
+    -webkit-filter: blur(2px) brightness(0.8);
+    -moz-filter: blur(2px) brightness(0.8);
+    -o-filter: blur(2px) brightness(0.8);
+    -ms-filter: blur(2px) brightness(0.8);
+    transition: background-position-y 20s linear;
+}
+a.bangumItem:hover div.bangumibg{
+    background-position-y: bottom;
+}
+div.mainMsg{
+    overflow: hidden;
+    height: 7em;
+    padding: 1%;color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px black;}
+a.bangumItem img{
+    height:5.8em;
+    display:inline-block;
+    float:left;
+    margin-right:5px;
+    filter: brightness(1);
+}
+a.bangumItem .textBox{
+    text-overflow:ellipsis;overflow:hidden;
+    position: relative;
+    z-index: 1;
+    height: 120%;
+}
+a.bangumItem div.jinduBG{
+    height:14px;
+    width: 100%;
+    background-color:gray;
+    display:inline-block;
+    border-radius:4px;
+    position: absolute;
+    bottom: 18px;
+}
+a.bangumItem div.jinduFG
+{
+    height:16px;
+    background-color:#ff8c83;
+    border-radius:4px;
+    position: absolute;
+    bottom: 0px;
+    z-index: 1;
+}
+a.bangumItem div.jinduText
+{
+    width:100%;height:auto;
+    text-align:center;
+    color:#fff;
+    line-height:15px;
+    font-size:15px;
+    position: absolute;
+    bottom: 0px;
+    z-index: 2;
+    font-weight: normal;
+    text-shadow: none;
+}
+@media screen and (max-width:1000px) {
+    a.bangumItem{
+        width:95%;
+    }
+}
+
+#pageInfo
+{
+    margin: 0 auto;
+
+}

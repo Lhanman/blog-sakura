@@ -1,0 +1,36 @@
+/*更改头像按钮*/
+.headPortraitChange a {
+    text-decoration: none;
+    color: #4aaa4a;
+    display: block;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    text-align: center;
+    cursor: pointer;
+}
+.headPortraitChange:hover{
+    background-color: green;
+}
+
+
+.headChange{
+    display: inline-block;
+    margin-left: 50px;
+}
+/*个人资料*/
+.headPortrait{
+    width: 120px;
+    height: 120px;
+    display: inline-block;
+    margin-top: 50px;
+    margin-left: 40px;
+}
+.headPortrait img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+

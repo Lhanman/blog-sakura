@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/css/public.css" media="all">
+    <style>
+        h4{ font-size:18px;font-family:"Microsoft YaHei","Simsun",Arial; font-weight:normal; line-height:1; padding:0; margin:0;}
+        .icons li{  margin:5px 0; text-align:center; height:120px; cursor:pointer;}
+        .icons li i{ display:block; font-size:35px; margin:10px 0; line-height:60px; height:60px;}
+        .icons li:hover{ background:#2f4056; border-radius:5px; color:#fff;}
+        .icons li:hover i{ font-size:50px;}
+        .section{ padding:20px;}
+        .section h4 span{ color:#0084e9;}
+        .fa {font-size: 25px !important;}
+        .fa:hover {font-size: 50px !important;}
+    </style>
+
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="section">
+            <h4><span style="color: red">缓存管理</span></h4>
+            <hr>
+            <div style="width: 216px; margin-bottom: 30px;">
+                <button type="button" class="layui-btn layui-btn-fluid layui-btn-normal" onclick="clickrefreshManga()">清除漫画缓存</button>
+            </div>
+            <div style="width: 216px; margin-bottom: 30px;">
+                <button type="button" class="layui-btn layui-btn-fluid layui-btn-normal" onclick="clickrefreshAnime()">清除动漫缓存</button>
+            </div>
+            <div style="width: 216px; margin-bottom: 30px;">
+                <button type="button" class="layui-btn layui-btn-fluid layui-btn-normal" onclick="clickrefreshMusic()">清除音乐缓存</button>
+            </div>
+            <div style="width: 216px; margin-bottom: 30px;">
+                <button type="button" class="layui-btn layui-btn-fluid layui-btn-normal" onclick="clickrefreshBlog()">清除博客缓存</button>
+            </div>
+            <div style="width: 216px; margin-bottom: 30px;">
+                <button type="button" class="layui-btn layui-btn-fluid layui-btn-normal" onclick="clickrefreshBookList()">清除书单缓存</button>
+            </div>
+            <div style="width: 216px; margin-bottom: 30px;">
+                <button type="button" class="layui-btn layui-btn-fluid layui-btn-normal" onclick="clickrefreshAll()">清除所有缓存</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+
+        window.clickrefreshManga = function()
+        {
+            layer.confirm('确定清除漫画缓存?', {icon: 3, title:'提示'}, function(index) {
+                $.ajax({
+                    type: 'get',
+                    url: 'admin/refreshMangaCache',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 101) {
+                            $.get("/toLogin", function (data, status, xhr) {
+
+                                layer.alert("未登录，没有权限", {
+                                    icon: 5
+                                }, function () {
+                                    window.location.replace("/api/blog/login");
+                                });
+
+                            });
+                        } else if (data.status === 102) {
+                            layer.msg("登录用户不具备权限", {
+                                icon: 5
+                            })
+                        } else if (data.status === 0) {
+                            layer.msg("清除漫画缓存成功！", {
+                                icon: 1
+                            })
+                        }
+                    }
+                });
+                layer.close(index);
+            })
+        };
+        window.clickrefreshAnime = function()
+        {
+            layer.confirm('确定清除动漫缓存?', {icon: 3, title:'提示'}, function(index) {
+                $.ajax({
+                    type: 'get',
+                    url: 'admin/refreshAnimeCache',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 101) {
+                            $.get("/toLogin", function (data, status, xhr) {
+
+                                layer.alert("未登录，没有权限", {
+                                    icon: 5
+                                }, function () {
+                                    window.location.replace("/api/blog/login");
+                                });
+
+                            });
+                        } else if (data.status === 102) {
+                            layer.msg("登录用户不具备权限", {
+                                icon: 5
+                            })
+                        } else if (data.status === 0) {
+                            layer.msg("清除动漫缓存成功！", {
+                                icon: 1
+                            })
+                        }
+                    }
+                });
+                layer.close(index);
+            })
+        };
+        window.clickrefreshMusic = function()
+        {
+            layer.confirm('确定清除音乐缓存?', {icon: 3, title:'提示'}, function(index) {
+                $.ajax({
+                    type: 'get',
+                    url: 'admin/refreshMusicCache',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 101) {
+                            $.get("/toLogin", function (data, status, xhr) {
+
+                                layer.alert("未登录，没有权限", {
+                                    icon: 5
+                                }, function () {
+                                    window.location.replace("/api/blog/login");
+                                });
+
+                            });
+                        } else if (data.status === 102) {
+                            layer.msg("登录用户不具备权限", {
+                                icon: 5
+                            })
+                        } else if (data.status === 0) {
+                            layer.msg("清除音乐缓存成功！", {
+                                icon: 1
+                            })
+                        }
+                    }
+                });
+                layer.close(index);
+            })
+        };
+        window.clickrefreshBlog = function()
+        {
+            layer.confirm('确定清除博客缓存?', {icon: 3, title:'提示'}, function(index) {
+                $.ajax({
+                    type: 'get',
+                    url: 'admin/refreshBlogCache',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 101) {
+                            $.get("/toLogin", function (data, status, xhr) {
+
+                                layer.alert("未登录，没有权限", {
+                                    icon: 5
+                                }, function () {
+                                    window.location.replace("/api/blog/login");
+                                });
+
+                            });
+                        } else if (data.status === 102) {
+                            layer.msg("登录用户不具备权限", {
+                                icon: 5
+                            })
+                        } else if (data.status === 0) {
+                            layer.msg("清除博客缓存成功！", {
+                                icon: 1
+                            })
+                        }
+                    }
+                });
+                layer.close(index);
+            })
+        };
+        window.clickrefreshBookList = function()
+        {
+            layer.confirm('确定清除书单缓存?', {icon: 3, title:'提示'}, function(index) {
+                $.ajax({
+                    type: 'get',
+                    url: 'admin/refreshBookListCache',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 101) {
+                            $.get("/toLogin", function (data, status, xhr) {
+
+                                layer.alert("未登录，没有权限", {
+                                    icon: 5
+                                }, function () {
+                                    window.location.replace("/api/blog/login");
+                                });
+
+                            });
+                        } else if (data.status === 102) {
+                            layer.msg("登录用户不具备权限", {
+                                icon: 5
+                            })
+                        } else if (data.status === 0) {
+                            layer.msg("清除书单缓存成功！", {
+                                icon: 1
+                            })
+                        }
+                    }
+                });
+                layer.close(index);
+            })
+        };
+
+        window.clickrefreshAll = function()
+        {
+            layer.confirm('确定清除所有缓存?', {icon: 3, title:'提示'}, function(index) {
+                $.ajax({
+                    type: 'get',
+                    url: 'admin/refreshAllCache',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 101) {
+                            $.get("/toLogin", function (data, status, xhr) {
+
+                                layer.alert("未登录，没有权限", {
+                                    icon: 5
+                                }, function () {
+                                    window.location.replace("/api/blog/login");
+                                });
+
+                            });
+                        } else if (data.status === 102) {
+                            layer.msg("登录用户不具备权限", {
+                                icon: 5
+                            })
+                        } else if (data.status === 0) {
+                            layer.msg("清除所有缓存成功！", {
+                                icon: 1
+                            })
+                        }
+                    }
+                });
+                layer.close(index);
+            })
+        };
+
+        function getCookie(cname)
+        {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)===0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        var token = getCookie("Lhan-blog-token");
+        layui.$.ajaxSetup({
+
+            beforeSend: function(jqXHR, settings) {
+
+                /*header里加请求头参数*/
+                jqXHR.setRequestHeader('Authorization', token)
+
+            },
+            success:function(result,status,xhr){
+
+            },
+            error:function(xhr,status,error){
+
+            },
+            complete:function(xhr,status){
+
+            }
+        });
+
+                /**
+                 * toolbar监听事件
+                 */
+
+                //监听表格复选框选择
+                table.on('checkbox(currentTableFilter)', function (obj) {
+
+                });
+
+                table.on('tool(currentTableFilter)', function (obj) {
+                    var data = obj.data;
+                    if (obj.event === 'edit') {
+
+                        var index = layer.open({
+                            title: '编辑漫画',
+                            type: 2,
+                            shade: 0.2,
+                            maxmin:true,
+                            shadeClose: true,
+                            area: ['100%', '100%'],
+                            content: 'admin/editManga/'+data.id
+                        });
+                        $(window).on("resize", function () {
+                            layer.full(index);
+                        });
+                        // $(window).on("close",function () {
+                        //
+                        // })
+                        return false;
+                    }
+                });
+
+            });
+
+</script>
+</body>
+</html>

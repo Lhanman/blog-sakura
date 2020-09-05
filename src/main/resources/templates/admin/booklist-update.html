@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html  lang="en"  xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/css/public.css" media="all">
+    <style>
+        body {
+            background-color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-form layuimini-form">
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">书名</label>
+        <div class="layui-input-block">
+            <input name="name" class="layui-input" th:value="${name}" lay-verify="required" lay-reqtext="书名不能为空" placeholder="请输入书名">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text ">
+        <label class="layui-form-label required">书籍描述</label>
+        <div class="layui-input-block">
+            <textarea name="description" class="layui-textarea" th:text="${description}" lay-verify="required" lay-reqtext="书籍描述不能为空" placeholder="请输入书籍描述"></textarea>
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">作者</label>
+        <div class="layui-input-block">
+            <input name="author" class="layui-input" th:value="${author}" lay-verify="required" lay-reqtext="作者不能为空" placeholder="请输入作者">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label required">读书状态</label>
+        <div class="layui-input-block">
+            <select  name="progress" lay-verify="required">
+                <option value="">请选择你的读书状态</option>
+                <option th:selected="${progress =='0'}" value="0">想读</option>
+                <option th:selected="${progress =='1'}" value="1">正在读</option>
+                <option th:selected="${progress =='2'}" value="2">已读</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <input type="hidden" name="id" th:value="${id}" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label required">豆瓣链接</label>
+        <div class="layui-input-block">
+            <input name="douban_link" class="layui-input" th:value="${douban_link}" lay-verify="required" lay-reqtext="豆瓣链接不能为空" placeholder="请输入豆瓣链接">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">购买链接</label>
+        <div class="layui-input-block">
+            <input name="purchase_link" class="layui-input" th:value="${purchase_link}" placeholder="请输入购买链接">
+        </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">PDF链接</label>
+        <div class="layui-input-block">
+            <input name="pdf_link" class="layui-input" th:value="${pdf_link}" placeholder="请输入PDF链接">
+        </div>
+    </div>
+
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="saveBtn">确认保存</button>
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+<script>
+
+    layui.use(['form'], function () {
+        var form = layui.form,
+            layer = layui.layer,
+            $ = layui.$;
+
+        function getCookie(cname)
+        {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i=0; i<ca.length; i++)
+            {
+                var c = ca[i].trim();
+                if (c.indexOf(name)===0) return c.substring(name.length,c.length);
+            }
+            return "";
+        }
+        var token = getCookie("Lhan-blog-token");
+        layui.$.ajaxSetup({
+
+            beforeSend: function(jqXHR, settings) {
+
+                /*header里加请求头参数*/
+                jqXHR.setRequestHeader('Authorization', token)
+
+            },
+            success:function(result,status,xhr){
+
+            },
+            error:function(xhr,status,error){
+
+            },
+            complete:function(xhr,status){
+
+            }
+        });
+        //监听提交
+        form.on('submit(saveBtn)', function (data) {
+            $.ajax({
+                type : 'post',
+                url : '/api/blog/admin/admin/updateBook',
+                data:{
+                    name : data.field.name,
+                    description : data.field.description,
+                    author : data.field.author,
+                    progress : data.field.progress,
+                    douban_link : data.field.douban_link,
+                    purchase_link : data.field.purchase_link,
+                    pdf_link : data.field.pdf_link,
+                    id : data.field.id
+                },
+                dataType:'json',
+                success : function (data) {
+                    if (data.status === 101)
+                    {
+                        $.get("/toLogin",function(data,status,xhr){
+
+                            layer.alert("未登录，没有权限",{
+                                icon:5
+                            },function () {
+                                window.location.replace("/api/blog/login");
+                            });
+
+                        });
+                    }
+                    else if (data.status === 102)
+                    {
+                        layer.msg("登录用户不具备权限",{
+                            icon:5
+                        })
+                    }
+
+                    else if (data.status === 0)
+                    {
+                        var index = layer.alert("保存成功", {
+                            title: '保存信息'
+                        }, function () {
+
+                            // 关闭弹出层
+                            layer.close(index);
+
+                            window.parent.location.reload();
+                            var iframeIndex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(iframeIndex);
+
+                        });
+                    }
+                    else
+                    {
+                        layer.msg("保存失败",{
+                            icon:5
+                        })
+                    }
+                }
+            })
+
+
+
+
+            return false;
+        });
+
+    });
+</script>
+</body>
+</html>

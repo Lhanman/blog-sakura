@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>更新封面</title>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/lib/jq-module/zyupload/zyupload-1.0.0.min.css" media="all">
+    <link rel="stylesheet" href="/assets/css/public.css" media="all">
+    <link rel="stylesheet" href="/assets/lib/layui-v2.5.5/css/modules/layer/default/layer.css">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div id="zyupload" class="zyupload"></div>
+    </div>
+</div>
+<script src="/assets/lib/jquery-3.4.1/jquery-3.4.1.min.js" charset="utf-8"></script>
+<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+<script src="/assets/lib/jq-module/zyupload/zyupload-1.0.0.min.js" charset="utf-8"></script>
+<script src="/assets/lib/layui-v2.5.5/lay/modules/layer.js"></script>
+<script  th:inline="javascript">
+
+    var layer = layui.layer;
+
+    function getCookie(cname)
+    {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0; i<ca.length; i++)
+        {
+            var c = ca[i].trim();
+            if (c.indexOf(name)===0) return c.substring(name.length,c.length);
+        }
+        return "";
+    }
+    var token = getCookie("Lhan-blog-token");
+    $.ajaxSetup({
+
+        beforeSend: function(jqXHR, settings) {
+
+            /*header里加请求头参数*/
+            jqXHR.setRequestHeader('Authorization', token)
+
+        },
+        success:function(result,status,xhr){
+
+        },
+        error:function(xhr,status,error){
+
+        },
+        complete:function(xhr,status){
+
+        }
+    });
+
+        var picture_id = [[${id}]];
+    console.info(picture_id);
+    $(function () {
+        // 初始化插件
+        $("#zyupload").zyUpload({
+            width: "650px",                 // 宽度
+            height: "400px",                 // 宽度
+            itemWidth: "140px",                 // 文件项的宽度
+            itemHeight: "115px",                 // 文件项的高度
+            url: "/api/blog/admin/admin/updatePicture/"+picture_id,  // 上传文件的路径
+            fileType: ["jpg","jpeg","png",],// 上传文件的类型
+            fileSize: 51200000,                // 上传文件的大小
+            multiple: false,                    // 是否可以多个文件上传
+            dragDrop: true,                 // 是否可以拖动上传文件
+            tailor: true,                    // 是否可以裁剪图片
+            del: true,                    // 是否可以删除文件
+            finishDel: false,  				  // 是否在上传文件完成后删除预览
+            /* 外部获得的回调接口 */
+            onSelect: function (selectFiles, allFiles) {    // 选择文件的回调方法  selectFile:当前选中的文件  allFiles:还没上传的全部文件
+                console.info("当前选择了以下文件：");
+                console.info(selectFiles);
+            },
+            onDelete: function (file, files) {              // 删除一个文件的回调方法 file:当前删除的文件  files:删除之后的文件
+                console.info("当前删除了此文件：");
+                console.info(file.name);
+            },
+            onSuccess: function (file, response) {// 文件上传成功的回调方法
+                var response = JSON.parse(response);
+                if (response.status === 101)
+                {
+                    $.get("/toLogin",function(data,status,xhr){
+
+                        layer.alert("未登录，没有权限",{
+                            icon:5
+                        },function () {
+                            window.location.replace("/api/blog/login");
+                        });
+
+                    });
+                }
+                else if(response.status === 207)
+                {
+                    layer.alert("图片不能为空",{
+                        icon:5
+                    });
+                }
+                else if (response.status === 0)
+                {
+                    layer.alert("修改成功",{
+                        icon:1
+                    },function () {
+                        window.parent.location.reload();
+                        var iframeIndex = parent.layer.getFrameIndex(window.name);
+                        parent.layer.close(iframeIndex);
+                    });
+
+                }
+            },
+            onFailure: function (file, response) {          // 文件上传失败的回调方法
+                console.info("此文件上传失败：");
+                console.info(file.name);
+            },
+            onComplete: function (response) {           	  // 上传完成的回调方法
+                console.info("文件上传完成");
+                console.info(response);
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>

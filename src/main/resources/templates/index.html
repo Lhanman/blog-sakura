@@ -1,0 +1,792 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Document Title -->
+    <title>JiaHao_Blog</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="http://static.lhanman.cn/static/images/myfavicon1.png">
+    <link rel="icon" href="http://static.lhanman.cn/static/images/myfavicon1.png" type="image/png" />
+
+    <!--==== Google Fonts ====-->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500%7CSpectral:400,400i,500,600,700" rel="stylesheet">
+
+    <!-- CSS Files -->
+
+    <!--==== Bootstrap css file ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!--==== Font-Awesome css file ====-->
+    <link href="http://static.lhanman.cn/static/assets/css/font-awesome.min.css" rel="stylesheet">
+
+    <!--==== Animate CSS ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+
+    <!--==== Owl Carousel ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" rel="stylesheet">
+
+    <!--==== Magnific Popup ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet">
+
+    <!--==== Style css file ====-->
+    <link rel="stylesheet" href="http://static.lhanman.cn/static/assets/css/style.css">
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+
+<!--    &lt;!&ndash;==== Responsive css file ====&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="/assets/css/responsive.css">-->
+
+    <!--==== Custom css file ====-->
+<!--    <link rel="stylesheet" href="/assets/css/custom.css">-->
+
+    <link rel="stylesheet" href="http://static.lhanman.cn/static/assets/css/index.css">
+<!--    <link rel="stylesheet" href="/assets/css/background.css">-->
+
+    <script src="https://www.layuicdn.com/layDate/laydate.js"></script>
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+<!--    <script src="https://www.layuicdn.com/layui/layui.js"></script>-->
+    <script src="http://static.lhanman.cn/static/assets/js/index.js"></script>
+    <script src="http://static.lhanman.cn/static/assets/js/tagcanvas.min.js"></script>
+    <!-- ==== 为index.html专门定制的JavaScript === -->
+
+
+    <!-- amazeUi -->
+<!--    <script src="/assets/js/amazeui.ie8polyfill.min.js"></script>-->
+<!--    <script src="/assets/js/amazeui.min.js"></script>-->
+
+</head>
+<body>
+
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preload-img">
+            <div class="spinnerBounce">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Preloader -->
+
+    <!-- Nav Search Box -->
+    <div class="nav-search-box">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="‘搜’的一下">
+                <span class="b-line"></span>
+                <span class="b-line-under"></span>
+                <div class="input-group-append">
+                    <button type="button" class="btn">
+                        <img src="/assets/images/search-icon.svg" alt="" class="img-fluid svg">
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- End of Nav Search Box -->
+
+    <!-- 引入共有头部-->
+    <div th:replace="header :: header"></div>
+    <div class="page-thumb">
+        <img src="http://static.lhanman.cn/static/images/header/header-one.jpg" alt="" class="img-fluid">
+    </div>
+    <!-- Trending Posts-->
+    <section class="pt-120 pb-10">
+        <div class="container">
+            <!-- 筛选时间顺序 -->
+            <div class="section-title">
+                <h2>极客</h2>
+            </div>
+            <!-- Section Title -->
+
+            <div class="row">
+                <div class="col-lg-6 order-lg-2">
+                    <!-- Post -->
+                    <div class="post-default post-has-bg-img">
+                        <div class="post-thumb">
+                            <a  onclick="showArticleByClickPic(this)">
+                                <div id="GeekBigImg0" data-bg-img="http://static.lhanman.cn/public/blogCover/ServerError.jpeg"></div>
+                            </a>
+                        </div>
+                        <div class="post-data" id="GeekArticleInfo0" onclick="showArticle(this)">
+                            <!-- Tag -->
+                            <div class="cats"></div>
+                            <!-- Title -->
+                            <div class="title">
+                                <h2><a  id="title0"></a></h2>
+                            </div>
+                            <!-- Post Meta -->
+                            <ul class="nav meta align-items-center">
+                                <li class="meta-author">
+                                    <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                    <a href="#">Lhan</a>
+                                </li>
+                                <li class="meta-date"><i class="am-icon-calendar"></i><a id="PostTime0"></a></li>
+                                <li class="meta-comments"><i class="fa fa-comment"></i><a id="commentNum0"></a></li>
+                                <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic0"></a></li>
+                            </ul>
+                            <h6 style="display: none;"></h6>
+                        </div>
+                    </div>
+                    <!-- End of Post -->
+                </div>
+                <div class="col-lg-6 order-lg-1">
+                    <!-- Post -->
+                    <div class="post-default post-has-no-thumb">
+                        <div class="post-data" id="GeekArticleInfo1" onclick="showArticle(this)">
+                            <!-- Tag -->
+                            <div class="cats"></div>
+                            <!-- Title -->
+                            <div class="title">
+                                <h2><a  id="title1"></a></h2>
+                            </div>
+                            <!-- Post Meta -->
+                            <ul class="nav meta align-items-center">
+                                <li class="meta-author">
+                                    <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                    <a href="#">Lhan</a>
+                                </li>
+                                <li class="meta-date"><i class="am-icon-calendar"></i><a id="PostTime1"></a></li>
+                                <li class="meta-comments"><i class="fa fa-comment"></i><a id="commentNum1"></a></li>
+                                <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic1"></a></li>
+                            </ul>
+                            <h6 style="display: none;"></h6>
+                            <!-- Post Desc -->
+                            <div class="desc">
+                                <p id="desc1">
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Post -->
+
+                    <!-- Post -->
+                    <div class="post-default post-has-no-thumb">
+                        <div class="post-data" id="GeekArticleInfo2" onclick="showArticle(this)">
+                            <!-- Tag -->
+                            <div class="cats"></div>
+                            <!-- Title -->
+                            <div class="title">
+                                <h2><a  id="title2"></a></h2>
+                            </div>
+                            <!-- Post Meta -->
+                            <ul class="nav meta align-items-center">
+                                <li class="meta-author">
+                                    <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                    <a href="#">Lhan</a>
+                                </li>
+                                <li class="meta-date"><i class="am-icon-calendar"></i><a  id="PostTime2"></a></li>
+                                <li class="meta-comments"><i class="fa fa-comment"></i><a id="commentNum2"></a></li>
+                                <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic2"></a></li>
+                            </ul>
+                            <h6 style="display: none;"></h6>
+                            <!-- Post Desc -->
+                            <div class="desc">
+                                <p id="desc2">
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Post -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End of Trending Posts-->
+
+    <!-- post with sidebar -->
+    <div class="container pt-40 pb-90">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- 筛选热度最高 -->
+                <section class="popular-post pb-10">
+                    <!-- Section title -->
+                    <div class="section-title">
+                        <h2>番评</h2>
+                    </div>
+                    <!-- End of Section title -->
+
+                    <div class="post-blog-list">
+                        <!-- Post -->
+                        <div class="post-default post-has-right-thumb">
+                            <div class="d-flex flex-wrap">
+                                <div class="post-thumb align-self-stretch order-md-2">
+                                    <a onclick="showArticleByClickPic(this)">
+                                    <div id="AnimeBigImg0" data-bg-img="http://static.lhanman.cn/public/blogCover/ServerError.jpeg"></div>
+                                    </a>
+                                </div>
+                                <div class="post-data order-md-1" id="AnimeArticleInfo0" onclick="showArticle(this)">
+                                    <!-- Tag -->
+                                    <div class="cats"></div>
+                                    <!-- Title -->
+                                    <div class="title">
+                                        <h2><a  class="title0"></a></h2>
+                                    </div>
+                                    <!-- Post Meta -->
+                                    <ul class="nav meta align-items-center">
+                                        <li class="meta-author">
+                                            <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                            <a href="#">Lhan</a>
+                                        </li>
+                                        <li class="meta-date"><i class="am-icon-calendar"></i><a  class="PostTime0"></a></li>
+                                        <li class="meta-comments"><i class="fa fa-comment"></i><a class="commentNum0"></a></li>
+                                        <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic0"></a></li>
+                                    </ul>
+                                    <h6 style="display: none;"></h6>
+                                    <!-- Post Desc -->
+                                    <div class="desc">
+                                        <p class="desc0">
+                                        </p>
+                                    </div>
+                                    <!-- Read More Button -->
+                                    <a  class="btn btn-primary">阅读全文</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Post -->
+                        
+                        <!-- Post -->
+                        <div class="post-default post-has-right-thumb">
+                            <div class="d-flex flex-wrap">
+                                <div class="post-thumb align-self-stretch order-md-2">
+                                    <a  onclick="showArticleByClickPic(this)">
+                                    <div id="AnimeBigImg1" data-bg-img="http://static.lhanman.cn/public/blogCover/ServerError.jpeg"></div>
+                                    </a>
+                                </div>
+                                <div class="post-data order-md-1" id="AnimeArticleInfo1" onclick="showArticle(this)" >
+                                    <!-- Tag -->
+                                    <div class="cats"></div>
+                                    <!-- Title -->
+                                    <div class="title">
+                                        <h2><a  class="title1"></a></h2>
+                                    </div>
+                                    <!-- Post Meta -->
+                                    <ul class="nav meta align-items-center">
+                                        <li class="meta-author">
+                                            <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                            <a href="#">Lhan</a>
+                                        </li>
+                                        <li class="meta-date"><i class="am-icon-calendar"></i><a  class="PostTime1"></a></li>
+                                        <li class="meta-comments"><i class="fa fa-comment"></i><a class="commentNum1"></a></li>
+                                        <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic1"></a></li>
+                                    </ul>
+                                    <h6 style="display: none;"></h6>
+                                    <!-- Post Desc -->
+                                    <div class="desc">
+                                        <p class="desc1">
+
+                                        </p>
+                                    </div>
+                                    <!-- Read More Button -->
+                                    <a  class="btn btn-primary">阅读全文</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Post --> 
+
+                        <!-- Post -->
+                        <div class="post-default post-has-right-thumb">
+                            <div class="d-flex flex-wrap">
+                                <div class="post-thumb align-self-stretch order-md-2">
+                                    <a  onclick="showArticleByClickPic(this)">
+                                    <div id="AnimeBigImg2" data-bg-img="http://static.lhanman.cn/public/blogCover/ServerError.jpeg"></div>
+                                    </a>
+                                </div>
+                                <div class="post-data order-md-1" id="AnimeArticleInfo2" onclick="showArticle(this)">
+                                    <!-- Tag -->
+                                    <div class="cats"></div>
+                                    <!-- Title -->
+                                    <div class="title">
+                                        <h2><a  class="title2"></a></h2>
+                                    </div>
+                                    <!-- Post Meta -->
+                                    <ul class="nav meta align-items-center">
+                                        <li class="meta-author">
+                                            <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                            <a href="#">Lhan</a>
+                                        </li>
+                                        <li class="meta-date"><i class="am-icon-calendar"></i><a  class="PostTime2"></a></li>
+                                        <li class="meta-comments"><i class="fa fa-comment"></i><a class="commentNum2"></a></li>
+                                        <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic2"></a></li>
+                                    </ul>
+                                    <h6 style="display: none;"></h6>
+                                    <!-- Post Desc -->
+                                    <div class="desc">
+                                        <p class="desc2">
+
+                                        </p>
+                                    </div>
+                                    <!-- Read More Button -->
+                                    <a  class="btn btn-primary">阅读全文</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Post --> 
+                    </div>
+                </section>
+                <!-- End of Popular Post  -->
+
+                <!-- 影评 筛选热度最高 -->
+                <section class="pt-40 pb-10 most-viewed">
+                    <!-- Section title -->
+                    <div class="section-title">
+                        <h2>影评</h2>
+                    </div>
+                    <!-- End of Section title -->
+                    <div class="post-blog-list">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <!-- Post -->
+                                <div class="post-default post-has-front-title">
+                                    <div class="post-thumb">
+                                        <a  onclick="showArticleByClickPic(this)"> <img id="MovieBigImg0" src="http://static.lhanman.cn/public/blogCover/ServerError.jpeg" alt="" class="img-fluid"> </a>
+                                    </div>
+                                    <div class="post-data" id="MovieArticleInfo0" onclick="showArticle(this)">
+                                        <!-- Tag -->
+                                        <div class="cats"></div>
+                                        <!-- Title -->
+                                        <div class="title">
+                                            <h2><a  class="title0"></a></h2>
+                                        </div>
+                                        <h6 style="display:none;"></h6>
+                                    </div>
+                                </div>
+                                <!-- End of Post -->
+                            </div>
+
+                            <div class="col-sm-6">
+                                <!-- Post -->
+                                <div class="post-default">
+                                    <div class="post-thumb">
+                                        <a  onclick="showArticleByClickPic(this)"> <img id="MovieBigImg1" src="http://static.lhanman.cn/public/blogCover/ServerError.jpeg" alt="" class="img-fluid"> </a>
+                                    </div>
+                                    <div class="post-data" id="MovieArticleInfo1" onclick="showArticle(this)">
+                                        <!-- Tag -->
+                                        <div class="cats"></div>
+                                        <!-- Title -->
+                                        <div class="title">
+                                            <h2><a  class="title1"></a></h2>
+                                        </div>
+                                        <h6 style="display: none"></h6>
+                                        <!-- Post Desc -->
+                                        <div class="desc">
+                                            <p class="desc1">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of Post -->
+                            </div>
+
+                            <div class="col-sm-6">
+                                <!-- Post -->
+                                <div class="post-default">
+                                    <div class="post-thumb">
+                                        <a  onclick="showArticleByClickPic(this)"><img id="MovieBigImg2" src="http://static.lhanman.cn/public/blogCover/ServerError.jpeg" alt="" class="img-fluid"></a>
+                                    </div>
+                                    <div class="post-data" id="MovieArticleInfo2" onclick="showArticle(this)">
+                                        <!-- Tag -->
+                                        <div class="cats"></div>
+                                        <!-- Title -->
+                                        <div class="title">
+                                            <h2><a  class="title2"></a></h2>
+                                        </div>
+                                        <h6 style="display: none;"></h6>
+                                        <!-- Post Desc -->
+                                        <div class="desc">
+                                            <p class="desc2">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of Post -->
+                            </div>
+
+                            <div class="col-sm-6">
+                                <!-- Post -->
+                                <div class="post-default">
+                                    <div class="post-thumb">
+                                        <a  onclick="showArticleByClickPic(this)"> <img id="MovieBigImg3" src="http://static.lhanman.cn/public/blogCover/ServerError.jpeg" alt="" class="img-fluid"> </a>
+                                    </div>
+                                    <div class="post-data" id="MovieArticleInfo3" onclick="showArticle(this)">
+                                        <!-- Tag -->
+                                        <div class="cats"></div>
+                                        <!-- Title -->
+                                        <div class="title">
+                                            <h2><a  class="title3"></a></h2>
+                                        </div>
+                                        <h6 style="display: none;"></h6>
+                                        <!-- Post Desc -->
+                                        <div class="desc">
+                                            <p class="desc3">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of Post -->
+                            </div>
+
+                            <div class="col-sm-6">
+                                <!-- Post -->
+                                <div class="post-default">
+                                    <div class="post-thumb">
+                                        <a  onclick="showArticleByClickPic(this)"> <img id="MovieBigImg4" src="http://static.lhanman.cn/public/blogCover/ServerError.jpeg" alt="" class="img-fluid"> </a>
+                                    </div>
+                                    <div class="post-data" id="MovieArticleInfo4" onclick="showArticle(this)">
+                                        <!-- Tag -->
+                                        <div class="cats"></div>
+                                        <!-- Title -->
+                                        <div class="title">
+                                            <h2><a  class="title4"></a></h2>
+                                        </div>
+                                        <h6 style="display:none;"></h6>
+                                        <!-- Post Desc -->
+                                        <div class="desc">
+                                            <p class="desc4">
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End of Post -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- End of Most Viewed Post -->
+
+
+
+                <!-- 随想 筛选出热度高的 -->
+                <section class="pt-40 pb-10 video-post">
+                    <!-- Section title -->
+                    <div class="section-title">
+                        <h2>随想</h2>
+                    </div>
+                    <!-- End of Section title -->
+                    <div class="post-blog-list">
+                        <!-- Post -->
+                        <div class="post-default post-has-right-thumb">
+                            <div class="d-flex flex-wrap">
+                                <div class="post-thumb align-self-stretch order-md-2">
+                                    <a  onclick="showArticleByClickPic(this)">
+                                        <div id="MoodBigImg0" data-bg-img="http://static.lhanman.cn/public/blogCover/ServerError.jpeg"></div>
+                                    </a>
+                                </div>
+                                <div class="post-data order-md-1" id="MoodArticleInfo0" onclick="showArticle(this)">
+                                    <!-- Tag -->
+                                    <div class="cats"></div>
+                                    <!-- Title -->
+                                    <div class="title">
+                                        <h2><a  class="title0"></a></h2>
+                                    </div>
+                                    <!-- Post Meta -->
+                                    <ul class="nav meta align-items-center">
+                                        <li class="meta-author">
+                                            <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                            <a href="#">Lhan</a>
+                                        </li>
+                                        <li class="meta-date"><i class="am-icon-calendar"></i><a  class="PostTime0"></a></li>
+                                        <li class="meta-comments"><i class="fa fa-comment"></i><a class="commentNum0"></a></li>
+                                        <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic0"></a></li>
+                                    </ul>
+                                    <h6 style="display: none;"></h6>
+                                    <!-- Post Desc -->
+                                    <div class="desc">
+                                        <p class="desc0">
+
+                                        </p>
+                                    </div>
+                                    <!-- Read More Button -->
+                                    <a  class="btn btn-primary">阅读全文</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Post -->
+
+                        <!-- Post -->
+                        <div class="post-default post-has-right-thumb">
+                            <div class="d-flex flex-wrap">
+                                <div class="post-thumb align-self-stretch order-md-2">
+                                    <a  onclick="showArticleByClickPic(this)">
+                                        <div id="MoodBigImg1" data-bg-img="http://static.lhanman.cn/public/blogCover/ServerError.jpeg"></div>
+                                    </a>
+                                </div>
+                                <div class="post-data order-md-1" id="MoodArticleInfo1" onclick="showArticle(this)">
+                                    <!-- Tag -->
+                                    <div class="cats"></div>
+                                    <!-- Title -->
+                                    <div class="title">
+                                        <h2><a  class="title1"></a></h2>
+                                    </div>
+                                    <!-- Post Meta -->
+                                    <ul class="nav meta align-items-center">
+                                        <li class="meta-author">
+                                            <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                            <a href="#">Lhan</a>
+                                        </li>
+                                        <li class="meta-date"><i class="am-icon-calendar"></i><a  class="PostTime1"></a></li>
+                                        <li class="meta-comments"><i class="fa fa-comment"></i><a class="commentNum1"></a></li>
+                                        <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic1"></a></li>
+                                    </ul>
+                                    <h6 style="display: none;"></h6>
+
+                                    <!-- Post Desc -->
+                                    <div class="desc">
+                                        <p class="desc1">
+
+                                        </p>
+                                    </div>
+                                    <!-- Read More Button -->
+                                    <a  class="btn btn-primary">阅读全文</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Post -->
+
+                        <!-- Post -->
+                        <div class="post-default post-has-right-thumb">
+                            <div class="d-flex flex-wrap">
+                                <div class="post-thumb align-self-stretch order-md-2">
+                                    <a  onclick="showArticleByClickPic(this)">
+                                        <div id="MoodBigImg2" data-bg-img="http://static.lhanman.cn/public/blogCover/ServerError.jpeg"></div>
+                                    </a>
+                                </div>
+                                <div class="post-data order-md-1" id="MoodArticleInfo2" onclick="showArticle(this)">
+                                    <!-- Tag -->
+                                    <div class="cats"></div>
+                                    <!-- Title -->
+                                    <div class="title">
+                                        <h2><a  class="title2"></a></h2>
+                                    </div>
+                                    <!-- Post Meta -->
+                                    <ul class="nav meta align-items-center">
+                                        <li class="meta-author">
+                                            <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                            <a href="#">Lhan</a>
+                                        </li>
+                                        <li class="meta-date"><i class="am-icon-calendar"></i><a  class="PostTime2"></a></li>
+                                        <li class="meta-comments"><i class="fa fa-comment"></i><a class="commentNum2"></a></li>
+                                        <li class="meta-traffic"><i class="fa fa-eye"></i><a class="traffic2"></a></li>
+                                    </ul>
+                                    <h6 style="display: none;"></h6>
+
+                                    <!-- Post Desc -->
+                                    <div class="desc">
+                                        <p class="desc2">
+
+                                        </p>
+                                    </div>
+                                    <!-- Read More Button -->
+                                    <a  class="btn btn-primary">阅读全文</a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Post -->
+                    </div>
+                </section>
+                <!-- End of 随想 -->
+            </div>
+            <div class="col-lg-4">
+                <div class="pt-88">
+                    <div class="my-sidebar">
+    <!-- Author Widget -->
+    <div class="widget widget-about">
+        <!-- Widget Content -->
+        <div class="widget-content">
+            <!-- Author Image -->
+            <div class="author-image">
+                <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+            </div>
+            <!-- Author Name -->
+            <div class="author-name text-center">
+                <a href="#"> Lhan </a>
+            </div>
+            <!-- Author Social Links -->
+            <div class="author-social text-center">
+                <a href="#"><i class="fa fa-weibo"></i></a>
+                <a href="#"><i class="fa fa-qq"></i></a>
+                <a href="#"><i class="fa fa-weixin"></i></a>
+                <a href="#"><i class="fa fa-google-plus"></i></a>
+            </div>
+            <!-- Author Text -->
+            <div class="author-text text-center">
+                广东工业大学的一枚普通大学生，热爱二次元,SAO迷，且极为不擅长编程。以上都不是很重要。最重要的是，我是谭天他亲爱的daddy！！！
+            </div>
+        </div>
+        <!-- End of Widget Content -->
+    </div>
+    <!-- End of Author Widget -->
+
+    <!-- Featured Posts -->
+    <div class="widget widget-featured-post">
+        <!-- Widget Title -->
+        <h4 class="widget-title">
+            日历
+        </h4>
+        <!-- End of Widget Title -->
+
+        <!-- Widget Content -->
+        <div class="widget-content">
+            <!-- Single Post -->
+            <div class="featured-post">
+                <span style="color: orange" id="dateView"></span>
+                <div id="date2"></div>
+            </div>
+            <!-- End of Single Post -->
+
+        </div>
+        <!-- End of Widget Content -->
+    </div>
+    <!-- End of Featured Posts -->
+                        <!-- Tags Cloud Widget -->
+                        <div class="widget widget-tag-cloud">
+                            <!-- Widget Title -->
+                            <h4 class="widget-title ">
+                                <span style="color: orange">标签云</span>
+                            </h4>
+                            <!-- End of Widget Title -->
+
+                            <!-- 标签云 -->
+                            <div class="widget-content tagcloud">
+                                <canvas id="myCanvas"></canvas>
+                                <div id="tags" style="display: none" >
+                                    <a th:each="tag : ${tagNameList}" th:text="${tag}" th:href="@{'tags?tag='+${tag}}"></a>
+                                </div>
+
+                            </div>
+                            <!-- End of Widget Content -->
+
+    <!-- Instagram Widget -->
+<!--    <div class="widget widget-instagram">-->
+<!--        &lt;!&ndash; Widget Title &ndash;&gt;-->
+<!--        <h4 class="widget-title">-->
+<!--            b（￣▽￣）d　<span style="color: yellow">某社好图</span>-->
+<!--        </h4>-->
+<!--        &lt;!&ndash; End of Widget Title &ndash;&gt;-->
+
+<!--        &lt;!&ndash; Widget Content &ndash;&gt;-->
+<!--        <div class="widget-content">-->
+<!--            <ul class="insta-gallery">-->
+<!--                <li>-->
+<!--                    &lt;!&ndash; Instagram Post Image &ndash;&gt;-->
+<!--                    <a href="#"><img src="/assets/images/gallery/1.jpg" alt="" class="img-fluid"></a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    &lt;!&ndash; Instagram Post Image &ndash;&gt;-->
+<!--                    <a href="#"><img src="/assets/images/gallery/2.jpg" alt="" class="img-fluid"></a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    &lt;!&ndash; Instagram Post Image &ndash;&gt;-->
+<!--                    <a href="#"><img src="/assets/images/gallery/3.jpg" alt="" class="img-fluid"></a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    &lt;!&ndash; Instagram Post Image &ndash;&gt;-->
+<!--                    <a href="#"><img src="/assets/images/gallery/4.jpg" alt="" class="img-fluid"></a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    &lt;!&ndash; Instagram Post Image &ndash;&gt;-->
+<!--                    <a href="#"><img src="/assets/images/gallery/7.jpg" alt="" class="img-fluid"></a>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    &lt;!&ndash; Instagram Post Image &ndash;&gt;-->
+<!--                    <a href="#"><img src="/assets/images/gallery/6.jpg" alt="" class="img-fluid"></a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--            &lt;!&ndash; Instagram Follow Button &ndash;&gt;-->
+<!--            <a href="#" class="btn btn-block btn-instagram">-->
+<!--                <i class="fa fa-info"></i> 更多-->
+<!--            </a>-->
+<!--        </div>-->
+<!--        &lt;!&ndash; End of Widget Content &ndash;&gt;-->
+<!--    </div>-->
+    <!-- End of Instagram Widget -->
+
+    <!-- Newsletter Widget -->
+    <div class="widget widget-newsletter">
+        <!-- Widget Title -->
+        <h4 class="widget-title">
+            订  阅
+        </h4>
+        <!-- End of Widget Title -->
+
+        <!-- Widget Content -->
+        <div class="widget-content">
+            <!-- Newsletter Text -->
+            <p>报上你的Email，我好在我更新博客后给你发通知(●'◡'●)</p>
+            <!-- Newsletter Form -->
+            <div class="newsletter">
+                <form action="#" method="post" novalidate>
+                    <input type="text" class="form-control" placeholder="Your Email">
+                    <button class="btn btn-block btn-default">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <!-- End of Widget Content -->
+    </div>
+    <!-- End of Newsletter Widget -->
+
+
+
+    </div>
+    <!-- End of Tags Cloud Widget -->
+
+
+</div>                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of post with sidebar -->
+
+    
+
+
+    <!-- Footer -->
+
+    <div th:replace="footer :: footer"></div>
+
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top d-flex align-items-center justify-content-center">
+        <span><i class="fa fa-long-arrow-up"></i></span>
+    </div>
+    <!-- End of Back to Top Button -->    
+
+    <!-- JS Files -->
+
+    <!-- ==== JQuery 1.12.1 js file ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    <!-- ==== Bootstrap js file ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ==== Owl Carousel ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
+    <!-- ==== Magnific Popup ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+     
+    <!-- ==== Script js file ==== -->
+    <script src="http://static.lhanman.cn/static/assets/js/scripts.js"></script>
+
+    <!-- ==== Custom js file ==== -->
+    <script src="http://static.lhanman.cn/static/assets/js/custom.js"></script>
+
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+
+    <script src="https://cdn.bootcdn.net/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script>
+
+
+
+</body>
+</html>

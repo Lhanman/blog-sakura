@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:http="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Document Title -->
+    <title id="ArticleTitle">文章标题</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="http://static.lhanman.cn/static/images/myfavicon1.png">
+    <link rel="icon" href="http://static.lhanman.cn/static/images/myfavicon1.png" type="image/png" />
+
+    <!--==== Google Fonts ====-->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500%7CSpectral:400,400i,500,600,700" rel="stylesheet">
+
+    <!-- CSS Files -->
+
+    <!--==== Bootstrap css file ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!--==== Font-Awesome css file ====-->
+    <link href="http://static.lhanman.cn/static/assets/css/font-awesome.min.css" rel="stylesheet">
+
+    <!--==== Animate CSS ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+
+    <!--==== Owl Carousel ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css" rel="stylesheet">
+
+    <!--==== Magnific Popup ====-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet">
+
+    <!--==== Style css file ====-->
+    <link rel="stylesheet" href="http://static.lhanman.cn/static/assets/css/style.css">
+
+    <link rel="stylesheet" href="http://static.lhanman.cn/static/assets/css/show.css">
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/amazeui/2.7.2/css/amazeui.min.css" rel="stylesheet">
+
+<!--    <link rel="stylesheet" href="/assets/css/share.min.css">-->
+
+    <link rel="stylesheet" href="/assets/css/comment.css">
+
+    <link href="https://lib.baomitu.com/lightgallery/1.6.12/css/lightgallery.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/layui/css/modules/layer/default/layer.css">
+
+
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preload-img">
+            <div class="spinnerBounce">
+                <div class="double-bounce1"></div>
+                <div class="double-bounce2"></div>
+            </div>
+        </div>
+    </div>
+    <!-- End of Preloader -->
+
+    <!-- Nav Search Box -->
+    <div class="nav-search-box">
+        <form>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="eg. feel the love and …">
+                <span class="b-line"></span>
+                <span class="b-line-under"></span>
+                <div class="input-group-append">
+                    <button type="button" class="btn">
+                        <img src="/assets/images/search-icon.svg" alt="" class="img-fluid svg">
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- End of Nav Search Box -->
+
+    <!-- 引入共有头部-->
+    <div th:replace="header :: header"></div>
+
+    <!-- Page title -->
+    <div class="page-title">
+        <div class="container">
+            <ul class="nav">
+                <li><a href="/">首页</a></li>
+                <li><a href="#">博客</a></li>
+            </ul>
+            <hr class="layui-bg-orange">
+
+            <h2 id="Category"></h2>
+        </div>
+    </div>
+    <!-- End of Page title -->
+
+    <div class="container pb-120">
+        <div class="row">
+            <div class="col-md-10 offset-md-1">
+                <div class="post-details-cover post-has-full-width-image">
+                    <!-- Post Thumbnail -->
+                    <div class="post-thumb-cover">
+                        <div class="post-thumb">
+                            <img id="articleCover" src="" alt="" class="img-fluid">
+                        </div>
+                        <!-- Post Meta Info -->
+                        <div class="post-meta-info">
+                            <!-- Tag -->
+                            <p class="cats">
+                                <i class="am am-icon-tag"></i>
+
+                            </p>
+
+                            <!-- Title -->
+                            <div >
+                                <h2 class="title"></h2>
+                            </div>
+
+                            <!-- Meta -->
+                            <ul class="nav meta align-items-center">
+                                <li class="meta-author">
+                                    <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                                    <a href="#">Lhan</a>
+                                </li>
+                                <li class="meta-date"><i class="am am-icon-calendar"></i> <a id="PostTime" href="#"></a></li>
+                                <!-- 阅读量 -->
+                                <li><i class="fa fa-eye"></i><strong class="articleTraffic"></strong></li>
+                                <li class="meta-comments"> <i class="fa fa-comment"></i><a href="#" class="commentNumber"></a></li>
+                            </ul>
+                        </div>
+                        <!-- End of Post Meta Info -->
+                    </div>
+                    <hr class="layui-bg-cyan">
+                    <!-- End oF Post Thumbnail -->
+
+                    <!-- Post Content -->
+                    <div class="content">
+                        <div class="article">
+                            <div class="article-content">
+                                <div id="wordsView">
+                                    <textarea style="display: none;" name="editormd-markdown-doc" id="mdText"></textarea>
+                                </div>
+                            </div>
+                            <div class="Lhan-article-footer">
+                            </div>
+                            <div class="other">
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Post Content -->
+
+
+                    <!-- Author Box -->
+                    <div class="post-about-author-box">
+                        <div class="author-avatar">
+                            <img src="http://static.lhanman.cn/static/images/author.jpg" alt="" class="img-fluid">
+                        </div>
+                        <div class="author-desc">
+                            <h5> <a href="about.html"> Lhan </a> </h5>
+                            <div class="description">
+                                广东工业大学的一枚普通大学生，热爱二次元,SAO迷，且极为不擅长编程。以上都不是很重要。最重要的是，我是谭天他亲爱的daddy！！！
+                            </div>
+                            <div class="social-icons">
+                                <a href="#"><i class="fa fa-weibo"></i></a>
+                                <a href="#"><i class="fa fa-qq"></i></a>
+                                <a href="#"><i class="fa fa-weixin"></i></a>
+                                <a href="#"><i class="fa fa-google-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Author Box -->
+                    
+                    <!-- Comments -->
+                    <button class="btn btn-comment" type="button" data-toggle="collapse" data-target="#commentToggle" aria-expanded="false" aria-controls="commentToggle">
+                        隐藏评论<span id="CommentNumber"></span>
+                    </button>
+
+                    <div class="collapse show" id="commentToggle">
+                        <ul class="post-all-comments" id="comments">
+                            <li class="single-comment-wrapper" >
+                                <!-- Single Comment -->
+                                <div class="single-post-comment">
+                                    <!-- Author Image -->
+                                    <div class="comment-author-image">
+                                    </div>
+                                    <!-- Comment Content -->
+                                    <div class="comment-content">
+                                        <div class="comment-author-name">
+
+                                        </div>
+                                        <p></p>
+                                        <a href="#" class="reply-btn"> </a>
+                                    </div>
+                                </div>
+                                <!-- End of Single Comment -->
+                                <div class="visitorReplies">
+                                    <ul class="children">
+                                        <li class="single-comment-wrapper">
+                                        <!-- Single Comment -->
+                                        <div class="single-post-comment">
+                                            <!-- Author Image -->
+                                            <div class="comment-author-image">
+                                            </div>
+                                            <!-- Comment Content -->
+                                            <div class="comment-content">
+                                                <div class="comment-author-name">
+
+                                                </div>
+                                                <p> </p>
+                                                <a href="#" class="reply-btn"></a>
+                                            </div>
+                                        </div>
+                                        <!-- End of Single Comment -->
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- End of Comments -->
+
+                    <!-- Comment Form -->
+                    <div class="post-comment-form-cover">
+                        <form class="am-form">
+                            <fieldset>
+                        <h3>来评论一下啦(●'◡'●)</h3>
+                                <div class="am-form-group " th:if="${#httpServletRequest.remoteUser}">
+                                    <textarea id="commentContent" class="am-form-field am-round" placeholder="客官~说几句话呗~!"></textarea>
+                                </div>
+
+                                <div class="am-form-group " th:unless="${#httpServletRequest.remoteUser}">
+                                   <div class="goToLogin">
+                                       &nbsp;&nbsp;&nbsp;请<a id="toLogin" onclick="toLogin(this)">登录</a>,登录后才能评论喔...
+                                   </div>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <button id="commentBtn" type="button" class="btn btn-primary" onclick="clickCommentBtn()"><i class="fa fa-send-o"></i>&nbsp; Submit </button>
+                                </div>
+                            </fieldset>
+                        </form>
+
+                    </div>
+                    <!-- End of Comment Form -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <div th:replace="footer :: footer"></div>
+
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top d-flex align-items-center justify-content-center">
+        <span><i class="fa fa-long-arrow-up"></i></span>
+    </div>
+    <!-- End of Back to Top Button -->
+    <!-- JS Files -->
+    <!-- ==== JQuery 1.12.1 js file ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
+    <!-- ==== Bootstrap js file ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- ==== Owl Carousel ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+
+    <!-- ==== Magnific Popup ==== -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+
+    <!-- ==== Script js file ==== -->
+    <script src="http://static.lhanman.cn/static/assets/js/scripts.js"></script>
+
+    <!-- ==== Custom js file ==== -->
+    <script src="http://static.lhanman.cn/static/assets/js/custom.js"></script>
+    <!-- 显示文章内容以及文章评论-->
+    <script src="/assets/js/show.js"></script>
+    <!-- 发送评论   -->
+    <script src="/assets/js/comment.js"></script>
+
+    <!-- amazeUi -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/amazeui/2.7.2/js/amazeui.ie8polyfill.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/amazeui/2.7.2/js/amazeui.min.js"></script>
+
+    <script src="/lib/underscore.min.js"></script>
+    <script src="https://lib.baomitu.com/modernizr/2010.07.06dev/modernizr.min.js"></script>
+    <script src="/lib/prettify.min.js"></script>
+    <script src="/lib/raphael.min.js"></script>
+    <script src="/lib/sequence-diagram.min.js"></script>
+    <script src="/lib/flowchart.min.js"></script>
+    <script src="/lib/jquery.flowchart.min.js"></script>
+    <script src="/lib/marked.min.js"></script>
+    <script src="/assets/js/editormd/editormd.js"></script>
+    <script src="/assets/js/lightgallery/lightgallery.js"></script>
+    <script src="/assets/js/lightgallery/picturefill.min.js"></script>
+    <script src="/assets/js/lightgallery/lg-pager.js"></script>
+    <script src="/assets/js/lightgallery/lg-autoplay.js"></script>
+    <script src="/assets/js/lightgallery/lg-fullscreen.js"></script>
+    <script src="/assets/js/lightgallery/lg-zoom.js"></script>
+    <script src="https://www.layuicdn.com/layui/layui.js"></script>
+    <script src="https://www.layuicdn.com/layer/layer.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.Lhan.personal_blog.mapper.CommentMapper">
+  <resultMap id="BaseResultMap" type="com.Lhan.personal_blog.pojo.Comment">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="pid" jdbcType="BIGINT" property="pid" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="comment_date" jdbcType="VARCHAR" property="commentDate" />
+    <result column="answer_id" jdbcType="BIGINT" property="answerId" />
+    <result column="respondent_id" jdbcType="BIGINT" property="respondentId" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+    <result column="is_effective" jdbcType="BIT" property="isEffective" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
+    <result column="user_agent" jdbcType="VARCHAR" property="userAgent" />
+    <result column="is_read" jdbcType="BIT" property="isRead" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, pid, content, comment_date, answer_id, respondent_id, ip, is_effective, likes, 
+    user_agent, is_read
+  </sql>
+  <select id="selectByExample" parameterType="com.Lhan.personal_blog.pojo.CommentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'false' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tbl_comment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tbl_comment
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tbl_comment
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Comment" useGeneratedKeys="true">
+    insert into tbl_comment (pid, content, comment_date, 
+      answer_id, respondent_id, ip, 
+      is_effective, likes, user_agent, 
+      is_read)
+    values (#{pid,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{commentDate,jdbcType=VARCHAR}, 
+      #{answerId,jdbcType=BIGINT}, #{respondentId,jdbcType=BIGINT}, #{ip,jdbcType=VARCHAR}, 
+      #{isEffective,jdbcType=BIT}, #{likes,jdbcType=INTEGER}, #{userAgent,jdbcType=VARCHAR}, 
+      #{isRead,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.Lhan.personal_blog.pojo.Comment" useGeneratedKeys="true">
+    insert into tbl_comment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        pid,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="commentDate != null">
+        comment_date,
+      </if>
+      <if test="answerId != null">
+        answer_id,
+      </if>
+      <if test="respondentId != null">
+        respondent_id,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+      <if test="isEffective != null">
+        is_effective,
+      </if>
+      <if test="likes != null">
+        likes,
+      </if>
+      <if test="userAgent != null">
+        user_agent,
+      </if>
+      <if test="isRead != null">
+        is_read,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="pid != null">
+        #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDate != null">
+        #{commentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="answerId != null">
+        #{answerId,jdbcType=BIGINT},
+      </if>
+      <if test="respondentId != null">
+        #{respondentId,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null">
+        #{isEffective,jdbcType=BIT},
+      </if>
+      <if test="likes != null">
+        #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="userAgent != null">
+        #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null">
+        #{isRead,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.Lhan.personal_blog.pojo.Comment">
+    update tbl_comment
+    <set>
+      <if test="pid != null">
+        pid = #{pid,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="commentDate != null">
+        comment_date = #{commentDate,jdbcType=VARCHAR},
+      </if>
+      <if test="answerId != null">
+        answer_id = #{answerId,jdbcType=BIGINT},
+      </if>
+      <if test="respondentId != null">
+        respondent_id = #{respondentId,jdbcType=BIGINT},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="isEffective != null">
+        is_effective = #{isEffective,jdbcType=BIT},
+      </if>
+      <if test="likes != null">
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
+      <if test="userAgent != null">
+        user_agent = #{userAgent,jdbcType=VARCHAR},
+      </if>
+      <if test="isRead != null">
+        is_read = #{isRead,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.Lhan.personal_blog.pojo.Comment">
+    update tbl_comment
+    set pid = #{pid,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      comment_date = #{commentDate,jdbcType=VARCHAR},
+      answer_id = #{answerId,jdbcType=BIGINT},
+      respondent_id = #{respondentId,jdbcType=BIGINT},
+      ip = #{ip,jdbcType=VARCHAR},
+      is_effective = #{isEffective,jdbcType=BIT},
+      likes = #{likes,jdbcType=INTEGER},
+      user_agent = #{userAgent,jdbcType=VARCHAR},
+      is_read = #{isRead,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="findCommentByPid" parameterType="java.lang.Long" resultMap="BaseResultMap">
+      select * from tbl_comment where pid=#{pId}
+
+    </select>
+
+  <!--  <select id="findNameById" parameterType="java.lang.Long" resultType="String">-->
+  <!--        select name from tbl_comment where id=#{id};-->
+  <!--    </select>-->
+
+  <select id="commentCount" resultType="Integer">
+      select count(*) from tbl_comment;
+
+    </select>
+
+  <select id="findCountIsReadByRespondentId" resultType="Integer">
+    select count(*) from tbl_comment where is_read=0 and respondent_id=#{respondentId} and answer_id!=#{respondentId}
+
+  </select>
+
+  <update id="readCommentByRespondentId" parameterType="Long">
+    update tbl_comment set is_read=1 where respondent_id = #{respondentId}
+  </update>
+
+  <select id="getUserCommentByRespondentId" parameterType="Long" resultMap="BaseResultMap">
+    select * from tbl_comment where respondent_id=#{respondentId} and answer_id!=#{respondentId} order by id desc
+  </select>
+
+</mapper>

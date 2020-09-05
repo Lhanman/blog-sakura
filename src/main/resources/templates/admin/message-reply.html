@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>layui</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://www.layuicdn.com/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/assets/css/public.css" media="all">
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+
+        <script type="text/html" id="toolbarDemo">
+            <div class="layui-btn-container">
+            </div>
+        </script>
+
+        <table class="layui-hide" id="currentTableId" lay-filter="currentTableFilter"></table>
+
+        <script type="text/html" id="currentTableBar">
+            {{#  if(d.is_replied === false){ }}
+            <a class="layui-btn layui-btn-radius layui-btn-sm data-count-edit" lay-event="reply">回复</a>
+            {{#  } else { }}
+            <a class="layui-btn layui-btn-radius layui-btn-sm layui-btn-disabled data-count-edit">回复</a>
+            {{#  } }}
+
+        </script>
+
+    </div>
+</div>
+<script src="https://www.layuicdn.com/layui/layui.js" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table'], function () {
+        var $ = layui.jquery,
+            form = layui.form,
+            table = layui.table;
+
+        table.render({
+            elem: '#currentTableId',
+            url: 'admin/findAllMessage',
+            toolbar: '#toolbarDemo',
+            defaultToolbar: ['filter', 'exports', 'print'],
+            cols: [[
+                {type: "checkbox", width: 50},
+                {field: 'id', width: 80, title: 'ID', sort: true},
+                {field: 'name', minWidth: 150, title: '名称'},
+                {field: 'content', minWidth: 200, title: '留言内容', sort: true},
+                {field: 'email', width: 150, title: 'Email'},
+                {field: 'ip', width: 150, title: 'Ip地址'},
+                {field: 'is_replied', width: 150, title: '是否已回复',templet:'#replyTpl'},
+                {field: 'createBy', width: 150, title: '创建时间',sort:true},
+                {title: '操作', minWidth: 150, toolbar: '#currentTableBar', align: "center"}
+            ]],
+            limits: [10, 15, 20, 25, 50, 100],
+            limit: 10,
+            page: true,
+            skin: 'line'
+        });
+
+        // 监听搜索操作
+        form.on('submit(data-search-btn)', function (data) {
+            var result = JSON.stringify(data.field);
+            layer.alert(result, {
+                title: '最终的搜索信息'
+            });
+
+            //执行搜索重载
+            table.reload('currentTableId', {
+                page: {
+                    curr: 1
+                }
+                , where: {
+                    searchParams: result
+                }
+            }, 'data');
+
+            return false;
+        });
+
+
+        table.on('tool(currentTableFilter)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'reply') {
+
+                var index = layer.open({
+                    title: '回复留言',
+                    type: 2,
+                    shade: 0.2,
+                    maxmin:true,
+                    shadeClose: true,
+                    area: ['100%', '100%'],
+                    content: 'admin/editEmail/'+data.id,
+                });
+                $(window).on("resize", function () {
+                    layer.full(index);
+                });
+                return false;
+            }
+        });
+
+    });
+</script>
+
+<script type="text/html" id="replyTpl">
+    {{#  if(d.is_replied === true){ }}
+    <span style="color: green;">已回复</span>
+    {{#  } else { }}
+    <span style="color: red">未回复</span>
+    {{#  } }}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+/* 修改 layui 分页的样式 */
+#pageBox .layui-laypage a{
+    color:#94999F;
+    font-size: 12px;
+}
+#pageBox .layui-laypage em{
+     font-size: 12px;
+}
+
+.layui-laypage .layui-laypage-spr{
+      margin-right: 5px;
+}
+#pageBox .layui-laypage a{
+      margin-right: 5px;
+}
+#pageBox .layui-laypage-curr{
+      margin-right: 5px;
+}
+.layui-laypage-prev,.layui-laypage-next{
+      font-family: "fontello";
+}
+#pageBox .layui-laypage .layui-laypage-curr .layui-laypage-em{
+      background-color: #1FB1EA;
+}
+
+#pageBox .layui-laypage a,#pageBox  .layui-laypage span:not(.layui-laypage-skip){
+      box-sizing: border-box;
+      padding: 4px 9px;
+     height: 26px;
+     width: 26px;
+     line-height: 1.42857143;
+}
+#pageBox  .layui-laypage .layui-laypage-count{
+    width: auto!important;
+    float: none;
+    color: #94999F;
+    font-size: 12px;
+}
+#pageBox .layui-laypage-btn{
+     background-color: #1FB1EA;
+     color: #FFFFFF;
+     width: 50px;
+     height: 26px;
+     padding: 1px 5px;
+     line-height: 1.5;
+}
+
+#pageBox .layui-laypage a,#pageBox .layui-laypage-spr{
+      border: 0px;
+}
+#pageBox a.layui-laypage-prev,#pageBox a.layui-laypage-next{
+      border: 1px solid #ddd;
+}
+#pageBox>.layui-laypage>a:hover{
+     color: #fff;
+     background-color: #58CAF4;
+     border-color: #58CAF4;
+}
+#pageBox a.layui-laypage-prev:hover,#pageBox a.layui-laypage-next:hover{
+    color: #94999F;
+    background-color: #fff;
+    border-color: #ddd;
+}
+#pageBox .layui-laypage-curr em:not(.layui-laypage-em){
+    line-height: 1.328571;
+}
+#pageBox .layui-laypage-btn:hover{
+    color: #656A71;
+    border-color: #DEE1E3;
+    background-color: #fff;
+}
